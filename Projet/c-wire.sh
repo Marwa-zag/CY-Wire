@@ -9,6 +9,8 @@ type_consommateur=$3
 temp="./temp"
 graphs="./graphs"
 
+#test 
+
 #Vérification de l'existence du dossier temp
 if [ ! -d "$temp" ]; then
     echo "Le dossier temp n'existe pas, création en cours..."
