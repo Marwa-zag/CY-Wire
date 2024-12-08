@@ -4,14 +4,15 @@
 #include "avl.h"
 
 
-
+//Fonction principale
 int main(int argc, char* argv[]){
     FILE* fichier = fopen(argv[1], "r"); //lecture seule
-
-    if (!fichier) {
-        printf("Erreur d'ouverture du fichier");
-        exit(EXIT_FAILURE);
+    if(fichier == NULL){
+        perror("Erreur lors de l'ouverture du fichier d'entrée");
+        return 1;
     }
+
+    
     //creation de la racine à faire!
 
     //On parcourt chaque ligne du fichier temporaire créer par le script shell
