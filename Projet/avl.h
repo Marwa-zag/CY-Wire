@@ -12,5 +12,9 @@ typedef struct Station {
     int hauteur; // Hauteur du nœud pour l'équilibre de l'AVL
 } Station;
 
+
+int hauteur(Station* station); 
+Station* rotationGauche(Station* y);
+Station* rotationDroite(Station* x);
 #endif
 
