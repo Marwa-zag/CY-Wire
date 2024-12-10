@@ -21,12 +21,12 @@ int main(int argc, char* argv[]){
 
     char ligne[1500];
     //On parcourt chaque ligne du fichier temporaire créer par le script shell
-     while (fgets(line, sizeof(line), file)) {
+     while (fgets(ligne, sizeof(ligne), fichier)) {
         int station_id;
         long capacite, somme_conso = 0;
 
         // Lecture des colonnes nécessaires
-        if (sscanf(line, "%d:%ld:%ld", &station_id, &capacite, &somme_conso) !=3) {
+        if (sscanf(ligne, "%d:%ld:%ld", &station_id, &capacite, &somme_conso) !=3) {
             fprintf(stderr, "Erreur de lecture de la ligne : %s\n", ligne);
             continue;
         }
@@ -36,7 +36,7 @@ int main(int argc, char* argv[]){
 
     parcourinfixe(racine);
 
-    fclose(file);
+    fclose(fichier);
     libererMemoire(racine);
 }
 
