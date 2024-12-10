@@ -21,11 +21,17 @@ int main(int argc, char* argv[]){
         long capacite, somme_conso = 0;
 
         // Lecture des colonnes nécessaires
-        if (sscanf(line, "%d:%ld:%ld", &station_id, &capacite, &somme_conso) >= 2) {
-            //ici on va insérer une nouvelle station (on appelera la fonction inserer)à faire!
+        if (sscanf(line, "%d:%ld:%ld", &station_id, &capacite, &somme_conso) !=3) {
+            fprintf(stderr, "Erreur de lecture de la ligne : %s\n", ligne);
+            continue;
         }
+
+        racine = insertion(racine, station_id, capacite, somme_conso);
     }
 
+    parcourinfixe(racine);
+
     fclose(file);
+    libererMemoire(racine);
 }
 
