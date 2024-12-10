@@ -6,6 +6,11 @@
 
 //Fonction principale
 int main(int argc, char* argv[]){
+     if (argc != 2) {
+        fprintf(stderr, "Usage: %s <fichier_donnees>\n", argv[0]);
+        return 1;
+    }
+
     FILE* fichier = fopen(argv[1], "r"); //lecture seule
     if(fichier == NULL){
         perror("Erreur lors de l'ouverture du fichier d'entrée");
@@ -14,6 +19,7 @@ int main(int argc, char* argv[]){
 
     Station* racine = NULL;
 
+    char ligne[1500];
     //On parcourt chaque ligne du fichier temporaire créer par le script shell
      while (fgets(line, sizeof(line), file)) {
         int station_id;
