@@ -12,8 +12,7 @@ int main(int argc, char* argv[]){
         return 1;
     }
 
-    noeud* racine = NULL;
-    //creation de la racine à faire!
+    Station* racine = NULL;
 
     //On parcourt chaque ligne du fichier temporaire créer par le script shell
      while (fgets(line, sizeof(line), file)) {
