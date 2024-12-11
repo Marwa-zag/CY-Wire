@@ -11,20 +11,34 @@ output_file="${type_station}_${type_consommateur}.csv"  # Output file name
 temp="./temp"
 graphs="./graphs"
 
+# Gestion de l'option d'aide (-h)
+if [[ "$1" == "-h" ]]; then
+    if [[ -f "aide.txt" ]]; then
+        cat aide.txt
+        echo " " #Saut à la ligne suivante
+        exit 0
+    else
+        echo "Erreur : Le fichier d'aide (aide.txt) est introuvable."
+        exit 1
+    fi
+fi
+
 #Verification de l'existence du dossier temp
 if [ ! -d "$temp" ]; then
     echo "Le dossier temp n'existe pas, creation en cours..."
     mkdir -p "$temp"
-#Vidage du dossier temp (PS NE PAS OUBLIER DE RETIRER LES # DEVANT POUR VIDER TEMP)
-#else
-    #echo "Le dossier temporaire existe. Vidage en cours..."
-    #rm -rf "$temp"/*
+#Vidage du dossier temp 
+else
+    echo "Le dossier temporaire existe. Vidage en cours..."
+    rm -rf "$temp"/*
+    echo "Le dossier a été vidé avec succès."
 fi
 
 #Verification de l'existence du dossier images
 if [ ! -d "$graphs" ]; then
     echo "Le dossier de graphiques n'existe pas, creation en cours..."
     mkdir -p "$graphs"
+    echo "Le dossier de graphiques a été créer avec succès."
 fi
 
 # Verification de l'existence du fichier CSV
@@ -79,61 +93,54 @@ cd - >/dev/null || exit 1
 
 debut_temps=$(date +%s)
 
-# Executer en fonction du type de station et de consommateur
+# Traitement des données en fonction du type de station et de consommateur
 echo "Traitement en cours pour le type de station '$type_station' et consommateur '$type_consommateur'..."
 
 case $type_station in
     hvb)
         if [[ "$type_consommateur" == "comp" ]]; then
-            awk -F';' '
-                $2 != "-" && $3 == "-" && $4 == "-" && $6 == "-" {
-                    gsub(/-/, "0", $7); gsub(/-/, "0", $8);
-                    print $2 ";" $7 ";" $8
-                }' "$fichier_dat" > temp/hvb_comp.csv
+            awk -F';' 'BEGIN { FS=";"; OFS=";" } \
+                $2 != "-" && $3 == "-" && $4 == "-" && $6 == "-" { gsub(/-/, "0", $7); gsub(/-/, "0", $8); print $2, $7, $8 } \
+                $1 ~ /^[0-9]+$/ && NF == 1 { station_id = $1 } \
+                station_id && NF >= 8 { gsub(/-/, "0", $7); gsub(/-/, "0", $8); print station_id, $7, $8; station_id = "" }' "$fichier_dat" > temp/hvb_comp.csv
             echo "Résultat intermédiaire : temp/hvb_comp.csv"
             "$EXECUTABLE/c-wire" temp/hvb_comp.csv > temp/hvb_result.csv
             echo "Résultat final : temp/hvb_result.csv"
         fi
         ;;
+
     hva)
         if [[ "$type_consommateur" == "comp" ]]; then
-            awk -F';' '
-                $3 != "-"  && $6 == "-" {
-                    gsub(/-/, "0", $7); gsub(/-/, "0", $8);
-                    print $3 ";" $7 ";" $8
-                }' "$fichier_dat" > temp/hva_comp.csv
+            awk -F';' 'BEGIN { FS=";"; OFS=";" } \
+                $3 != "-" && $6 == "-" { gsub(/-/, "0", $7); gsub(/-/, "0", $8); print $3, $7, $8 }' "$fichier_dat" > temp/hva_comp.csv
             echo "Résultat intermédiaire : temp/hva_comp.csv"
             "$EXECUTABLE/c-wire" temp/hva_comp.csv > temp/hva_resultat.csv
+            echo "Résultat final : temp/hva_resultat.csv"
         fi
         ;;
+
     lv)
         case $type_consommateur in
             comp)
-                awk -F';' '
-                    $4 != "-"  && $6 == "-" {
-                        gsub(/-/, "0", $7); gsub(/-/, "0", $8);
-                        print $4 ";" $7 ";" $8
-                    }' "$fichier_dat" > temp/lv_comp.csv
+                awk -F';' 'BEGIN { FS=";"; OFS=";" } \
+                    $4 != "-" && $6 == "-" { gsub(/-/, "0", $7); gsub(/-/, "0", $8); print $4, $7, $8 }' "$fichier_dat" > temp/lv_comp.csv
                 echo "Résultat intermédiaire : temp/lv_comp.csv"
                 "$EXECUTABLE/c-wire" temp/lv_comp.csv > temp/lv_resultat.csv
+                echo "Résultat final : temp/lv_resultat.csv"
                 ;;
             indiv)
-                awk -F';' '
-                    $4 != "-" && $5 == "-" {
-                        gsub(/-/, "0", $7); gsub(/-/, "0", $8);
-                        print $4 ";" $7 ";" $8
-                    }' "$fichier_dat" > temp/lv_indiv.csv
+                awk -F';' 'BEGIN { FS=";"; OFS=";" } \
+                    $4 != "-" && $5 == "-" { gsub(/-/, "0", $7); gsub(/-/, "0", $8); print $4, $7, $8 }' "$fichier_dat" > temp/lv_indiv.csv
                 echo "Résultat intermédiaire : temp/lv_indiv.csv"
                 "$EXECUTABLE/c-wire" temp/lv_indiv.csv > temp/lv_indiv_resultat.csv
+                echo "Résultat final : temp/lv_indiv_resultat.csv"
                 ;;
             all)
-                awk -F';' '
-                    $4 != "-"  {
-                        gsub(/-/, "0", $7); gsub(/-/, "0", $8);
-                        print $4 ";" $7 ";" $8
-                    }' "$fichier_dat" > temp/lv_all.csv
+                awk -F';' 'BEGIN { FS=";"; OFS=";" } \
+                    $4 != "-" { gsub(/-/, "0", $7); gsub(/-/, "0", $8); print $4, $7, $8 }' "$fichier_dat" > temp/lv_all.csv
                 echo "Résultat intermédiaire : temp/lv_all.csv"
                 "$EXECUTABLE/c-wire" temp/lv_all.csv > temp/lv_all_resultat.csv
+                echo "Résultat final : temp/lv_all_resultat.csv"
                 ;;
         esac
         ;;
