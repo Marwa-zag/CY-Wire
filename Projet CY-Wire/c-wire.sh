@@ -196,6 +196,18 @@ case $type_station in
                 echo "Résultat intermédiaire : temp/lv_all${id_centrale:+_$id_centrale}.csv"
                 "$EXECUTABLE/c-wire" temp/lv_all${id_centrale:+_$id_centrale}.csv > temp/lv_all_result${id_centrale:+_$id_centrale}.csv
                 echo "Résultat final : temp/lv_all_result${id_centrale:+_$id_centrale}.csv"
+
+                # === Traitement supplémentaire pour lv_all_minmax.csv ===
+                # Trier les données par consommation pour extraire les 10 plus grandes et les 10 plus petites consommations
+                # Trier les données par consommation décroissante (les 10 plus grandes consommations)
+                sort -t: -k8,8nr temp/lv_all_result${id_centrale:+_$id_centrale}.csv | head -n 10 > temp/lv_max_10.csv
+                
+                # Trier les données par consommation croissante (les 10 plus faibles consommations)
+                sort -t: -k8,8n temp/lv_all_result${id_centrale:+_$id_centrale}.csv | head -n 10 > temp/lv_min_10.csv
+                
+                # Fusionner les fichiers (max et min) dans lv_all_minmax.csv
+                cat temp/lv_max_10.csv temp/lv_min_10.csv > temp/lv_all_minmax.csv
+                echo "Fichier lv_all_minmax.csv généré avec succès dans le dossier temp."
                 ;;
         esac
         ;;
