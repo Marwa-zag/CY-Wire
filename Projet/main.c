@@ -22,21 +22,28 @@ int main(int argc, char* argv[]){
     char ligne[1500];
     //On parcourt chaque ligne du fichier temporaire créer par le script shell
      while (fgets(ligne, sizeof(ligne), fichier)) {
-        int station_id;
-        long capacite, somme_conso = 0;
-
-        // Lecture des colonnes nécessaires
-        if (sscanf(ligne, "%d:%ld:%ld", &station_id, &capacite, &somme_conso) !=3) {
-            fprintf(stderr, "Erreur de lecture de la ligne : %s\n", ligne);
+        // Supprimer les espaces ou caractères indésirables
+        ligne[strcspn(ligne, "\n")] = 0; // Enlever le caractère de saut de ligne
+        
+        // Ignorer les lignes d'en-tête ou mal formées
+        if (strstr(ligne, "Station") || strcmp(ligne, "") == 0 || strstr(ligne, "::")) {
             continue;
         }
-
-        racine = insertion(racine, station_id, capacite, somme_conso);
+        
+        int station_id;
+        long capacite, somme_conso;
+        
+        // Lecture des colonnes nécessaires
+        if (sscanf(ligne, "%d:%ld:%ld", &station_id, &capacite, &somme_conso) != 3) {
+            fprintf(stderr, "Erreur de lecture de la ligne : %s\n", ligne);
+            continue;
+            }
+        racine = inserer(racine, station_id, capacite, somme_conso);
     }
+
 
     parcourinfixe(racine);
 
     fclose(fichier);
     libererMemoire(racine);
 }
-
