@@ -5,7 +5,8 @@
 fichier_dat="$1"
 type_station=$2
 type_consommateur=$3
-output_file="${type_station}_${type_consommateur}.csv"  # Output file name
+id_centrale="${4:-}" # Si le numéro de centrale est fourni, sinon vide
+output_file_name="${type_station}_${type_consommateur}${id_centrale:+_$id_centrale}.csv" # Adapter le nom de fichier selon le numéro de centrale
 
 #Nom des dossiers
 temp="./temp"
@@ -102,75 +103,107 @@ case $type_station in
             # Convertir les ; en : dans le fichier source
             sed 's/;/:/g' "$fichier_dat" > temp/converted_data.csv
 
-            # Appliquer le filtre avec le séparateur :
-            awk -F':' 'BEGIN { FS=":"; OFS=":" } \
-                $2 != "-" && $3 == "-" && $4 == "-" && $6 == "-" { gsub(/-/, "0", $7); gsub(/-/, "0", $8); print $2, $7, $8 } \
-                $1 ~ /^[0-9]+$/ && NF == 1 { station_id = $1 } \
-                station_id && NF >= 8 { gsub(/-/, "0", $7); gsub(/-/, "0", $8); print station_id, $7, $8; station_id = "" }' temp/converted_data.csv > temp/hvb_comp.csv
+            # Appliquer le filtre avec le séparateur et filtrage optionnel par centrale
+            awk -F':' -v central="$id_centrale" '
+                BEGIN { FS=":"; OFS=":" }
+                (central == "" || $1 == central) && $2 != "-" && $3 == "-" && $4 == "-" && $6 == "-" {
+                    gsub(/-/, "0", $7);
+                    gsub(/-/, "0", $8);
+                    print $2, $7, $8
+                }' temp/converted_data.csv > temp/hvb_comp${id_centrale:+_$id_centrale}.csv
 
-            echo "Résultat intermédiaire : temp/hvb_comp.csv"
-            "$EXECUTABLE/c-wire" temp/hvb_comp.csv > temp/hvb_result.csv
-            echo "Résultat final : temp/hvb_result.csv"
+            echo "Résultat intermédiaire : temp/hvb_comp${id_centrale:+_$id_centrale}.csv"
+            "$EXECUTABLE/c-wire" temp/hvb_comp${id_centrale:+_$id_centrale}.csv > temp/hvb_result${id_centrale:+_$id_centrale}.csv
+            echo "Résultat final : temp/hvb_result${id_centrale:+_$id_centrale}.csv"
         fi
         ;;
     hva)
         if [[ "$type_consommateur" == "comp" ]]; then
             sed 's/;/:/g' "$fichier_dat" > temp/converted_data.csv
-            awk -F':' 'BEGIN { FS=":"; OFS=":" } \
-                $3 != "-" && $6 == "-" { gsub(/-/, "0", $7); gsub(/-/, "0", $8); print $3, $7, $8 }' temp/converted_data.csv > temp/hva_comp.csv
-            echo "Résultat intermédiaire : temp/hva_comp.csv"
-            "$EXECUTABLE/c-wire" temp/hva_comp.csv > temp/hva_resultat.csv
-            echo "Résultat final : temp/hva_resultat.csv"
+
+            # Appliquer le filtre avec le séparateur et filtrage optionnel par centrale
+            awk -F':' -v central="$id_centrale" '
+                BEGIN { FS=":"; OFS=":" }
+                (central == "" || $1 == central) && $3 != "-" && $6 == "-" {
+                    gsub(/-/, "0", $7);
+                    gsub(/-/, "0", $8);
+                    print $3, $7, $8
+                }' temp/converted_data.csv > temp/hva_comp${id_centrale:+_$id_centrale}.csv
+
+            echo "Résultat intermédiaire : temp/hva_comp${id_centrale:+_$id_centrale}.csv"
+            "$EXECUTABLE/c-wire" temp/hva_comp${id_centrale:+_$id_centrale}.csv > temp/hva_result${id_centrale:+_$id_centrale}.csv
+            echo "Résultat final : temp/hva_result${id_centrale:+_$id_centrale}.csv"
         fi
         ;;
     lv)
         case $type_consommateur in
             comp)
                 sed 's/;/:/g' "$fichier_dat" > temp/converted_data.csv
-                awk -F':' 'BEGIN { FS=":"; OFS=":" } \
-                    $4 != "-" && $6 == "-" { gsub(/-/, "0", $7); gsub(/-/, "0", $8); print $4, $7, $8 }' temp/converted_data.csv > temp/lv_comp.csv
-                echo "Résultat intermédiaire : temp/lv_comp.csv"
-                "$EXECUTABLE/c-wire" temp/lv_comp.csv > temp/lv_resultat.csv
-                echo "Résultat final : temp/lv_resultat.csv"
+
+                # Appliquer le filtre avec le séparateur et filtrage optionnel par centrale
+                awk -F':' -v central="$id_centrale" '
+                    BEGIN { FS=":"; OFS=":" }
+                    (central == "" || $1 == central) && $4 != "-" && $6 == "-" {
+                        gsub(/-/, "0", $7);
+                        gsub(/-/, "0", $8);
+                        print $4, $7, $8
+                    }' temp/converted_data.csv > temp/lv_comp${id_centrale:+_$id_centrale}.csv
+
+                echo "Résultat intermédiaire : temp/lv_comp${id_centrale:+_$id_centrale}.csv"
+                "$EXECUTABLE/c-wire" temp/lv_comp${id_centrale:+_$id_centrale}.csv > temp/lv_result${id_centrale:+_$id_centrale}.csv
+                echo "Résultat final : temp/lv_result${id_centrale:+_$id_centrale}.csv"
                 ;;
             indiv)
                 sed 's/;/:/g' "$fichier_dat" > temp/converted_data.csv
-                awk -F':' 'BEGIN { FS=":"; OFS=":" } \
-                    $4 != "-" && $5 == "-" { gsub(/-/, "0", $7); gsub(/-/, "0", $8); print $4, $7, $8 }' temp/converted_data.csv > temp/lv_indiv.csv
-                echo "Résultat intermédiaire : temp/lv_indiv.csv"
-                "$EXECUTABLE/c-wire" temp/lv_indiv.csv > temp/lv_indiv_resultat.csv
-                echo "Résultat final : temp/lv_indiv_resultat.csv"
+
+                # Appliquer le filtre avec le séparateur et filtrage optionnel par centrale
+                awk -F':' -v central="$id_centrale" '
+                    BEGIN { FS=":"; OFS=":" }
+                    (central == "" || $1 == central) && $4 != "-" && $5 == "-" {
+                        gsub(/-/, "0", $7);
+                        gsub(/-/, "0", $8);
+                        print $4, $7, $8
+                    }' temp/converted_data.csv > temp/lv_indiv${id_centrale:+_$id_centrale}.csv
+
+                echo "Résultat intermédiaire : temp/lv_indiv${id_centrale:+_$id_centrale}.csv"
+                "$EXECUTABLE/c-wire" temp/lv_indiv${id_centrale:+_$id_centrale}.csv > temp/lv_indiv_result${id_centrale:+_$id_centrale}.csv
+                echo "Résultat final : temp/lv_indiv_result${id_centrale:+_$id_centrale}.csv"
                 ;;
             all)
                 sed 's/;/:/g' "$fichier_dat" > temp/converted_data.csv
+
                 # Filtrer les données pour ignorer l'en-tête et les lignes mal formées
-                awk -F':' 'BEGIN { FS=":"; OFS=":" } \
-                NR > 1 && $4 != "-" && $7 != "" && $8 != "" { \
-                gsub(/-/, "0", $7); \
-                gsub(/-/, "0", $8); \
-                print $4, $7, $8 \
-                }' temp/converted_data.csv > temp/lv_all.csv
-                echo "Résultat intermédiaire : temp/lv_all.csv"
-                # Exécution du programme C
-                "$EXECUTABLE/c-wire" temp/lv_all.csv > temp/lv_all_resultat.csv
-                echo "Résultat final : temp/lv_all_resultat.csv"
+                awk -F':' -v central="$id_centrale" '
+                    BEGIN { FS=":"; OFS=":" }
+                    NR > 1 && (central == "" || $1 == central) && $4 != "-" && $7 != "" && $8 != "" {
+                        gsub(/-/, "0", $7);
+                        gsub(/-/, "0", $8);
+                        print $4, $7, $8
+                    }' temp/converted_data.csv > temp/lv_all${id_centrale:+_$id_centrale}.csv
+
+                echo "Résultat intermédiaire : temp/lv_all${id_centrale:+_$id_centrale}.csv"
+                "$EXECUTABLE/c-wire" temp/lv_all${id_centrale:+_$id_centrale}.csv > temp/lv_all_result${id_centrale:+_$id_centrale}.csv
+                echo "Résultat final : temp/lv_all_result${id_centrale:+_$id_centrale}.csv"
+                ;;
         esac
         ;;
     *)
         echo "Erreur : Type de station invalide."
-        show_help
+        cat aide.txt
         ;;
 esac
+
 
 fin_temps=$(date +%s)
 duree=$((fin_temps - debut_temps)) # Calcul de la duree du traitement
 echo "Temps d'execution du traitement : $duree secondes"
 
-# Verification : Si le fichier est vide
-if [ ! -s "$temp/$output_file" ]; then
-    echo "Attention : Le fichier $output_file est vide. Verifiez vos colonnes ou les donnees sources."
+
+# Vérification : Si le fichier est vide
+if [ ! -s "$temp/$output_file_name" ]; then
+    echo "Attention : Le fichier $output_file_name est vide. Verifiez vos colonnes ou les donnees sources."
     exit 1
 fi
 
 # Message de confirmation
-echo "Le fichier $temp/$output_file a ete genere avec succès dans le dossier temp." 
+echo "Le fichier $temp/$output_file_name a ete genere avec succès dans le dossier temp."
