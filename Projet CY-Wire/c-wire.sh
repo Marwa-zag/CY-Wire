@@ -218,11 +218,11 @@ case $type_station in
                 echo "Résultat final : temp/lv_all_result${id_centrale:+_$id_centrale}.csv"
 
                 # === Traitement supplémentaire pour lv_all_minmax.csv ===
-                # Trier les données par consommation pour extraire les 10 plus grandes et les 10 plus petites consommations
-                # Trier les données par consommation décroissante (les 10 plus grandes consommations)
+                # Trier les données par capacité pour extraire les 10 plus grandes et les 10 plus petites capacités
+                # Trier les données par capacité décroissante (les 10 plus grandes capacités)
                 sort -t: -k2,2nr temp/lv_all_result${id_centrale:+_$id_centrale}.csv | head -n 10 > temp/lv_max_10.csv
                 
-                # Trier les données par consommation croissante (les 10 plus faibles consommations)
+                # Trier les données par capacité croissante (les 10 plus faibles capacités)
                 sort -t: -k2,2n temp/lv_all_result${id_centrale:+_$id_centrale}.csv | head -n 10 > temp/lv_min_10.csv
                 
                 # Fusionner les fichiers (max et min) dans lv_all_minmax.csv
