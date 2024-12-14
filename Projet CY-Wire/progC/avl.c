@@ -120,7 +120,7 @@ void parcourinfixe(Station* racine) {
     }
     
     parcourinfixe(racine->fg);
-    printf("%d:%f:%f\n", racine->station_id, racine->capacite, racine->somme_conso);
+    printf("%d:%.0f:%.0f\n", racine->station_id, racine->capacite, racine->somme_conso);
     parcourinfixe(racine->fd);
 }
 

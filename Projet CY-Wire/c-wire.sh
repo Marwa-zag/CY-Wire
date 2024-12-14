@@ -7,23 +7,44 @@ type_consommateur=$3 # Type de consommateur (comp, indiv ou all)
 id_centrale="${4:-}" # Si le numéro de centrale est fourni, sinon vide
 output_file_name="${type_station}_${type_consommateur}${id_centrale:+_$id_centrale}.csv" # Nom du fichier de sortie généré en fonction des types spécifiés
 
+# Chemin du fichier d'aide
+fichier_aide="aide.txt"
+
+# Fonction pour afficher l'aide
+afficher_aide() {
+    if [[ -f "$fichier_aide" ]]; then
+        cat "$fichier_aide"
+    else
+        echo "Erreur : Le fichier d'aide ($fichier_aide) est introuvable."
+    fi
+}
+
+# Vérification si l'utilisateur demande l'aide
+if [[ "$1" == "-h" ]]; then
+    afficher_aide
+    exit 0
+fi
+
+
+# Vérification que le fichier est dans le dossier data
+dossier_data="data"
+if [[ "$fichier_dat" != "$dossier_data/"* ]]; then
+    echo "Erreur : Le fichier doit être situé dans le dossier '$dossier_data'."
+    afficher_aide
+    exit 1
+fi
+
+# Vérification de l'existence du fichier
+if [ ! -f "$fichier_dat" ]; then
+    echo "Erreur : Le fichier CSV spécifié n'existe pas dans le dossier '$dossier_data' ($fichier_dat)."
+    afficher_aide
+    exit 1
+fi
+
 #- Dossisers utilisés
 temp="./temp"   # Dossier temporaire pour les fichiers intermédiaire
 graphs="./graphs"  # Dossier pour stocker les graphiques générés
 
-# Gestion de l'option d'aide (-h)
-if [[ "$1" == "-h" ]]; then
-    # Affichage de l'aide si le fichier existe
-    if [[ -f "aide.txt" ]]; then
-        cat aide.txt
-        echo " " #Saut à la ligne suivante
-        exit 0
-    else
-        # Message d'erreur si le fichier d'aide est introuvable
-        echo "Erreur : Le fichier d'aide (aide.txt) est introuvable."
-        exit 1
-    fi
-fi
 
 #Verification de l'existence du dossier temp
 if [ ! -d "$temp" ]; then
@@ -43,15 +64,10 @@ if [ ! -d "$graphs" ]; then
     echo "Le dossier de graphiques a été créer avec succès."
 fi
 
-# Verification de l'existence du fichier CSV
-if [ ! -f "$fichier_dat" ]; then
-    echo "Erreur : Le fichier CSV specifie n'existe pas ($fichier_dat)."
-    exit 1
-fi
-
 # Vérification que l'ID de la centrale est valide (1 à 5)
 if [[ -n "$id_centrale" && ! "$id_centrale" =~ ^[1-5]$ ]]; then
     echo "Erreur : Il y a seulment 5 centrale. L'identifiant de la centrale doit être un nombre entre 1 et 5."
+    afficher_aide
     exit 1
 fi
 
@@ -60,6 +76,7 @@ fi
 if [[ "$type_station" != "hvb" && "$type_station" != "hva" && "$type_station" != "lv" ]]; then
     echo "Erreur : Type de station invalide ($type_station)."
     echo "Les types valides sont : hvb, hva, lv."
+    afficher_aide
     exit 1
 fi
 
@@ -67,17 +84,20 @@ fi
 if [[ "$type_consommateur" != "comp" && "$type_consommateur" != "indiv" && "$type_consommateur" != "all" ]]; then
     echo "Erreur : Type de consommateur invalide ($type_consommateur)."
     echo "Les types valides sont : comp, indiv, all."
+    afficher_aide
     exit 1
 fi
 
 # Verification des combinaisons interdites
 if [[ "$type_station" == "hvb" && ( "$type_consommateur" == "all" || "$type_consommateur" == "indiv" ) ]]; then
     echo "Erreur : La combinaison hvb avec all ou indiv est interdite. La seule combinaison possible est comp."
+    afficher_aide
     exit 1
 fi
 
 if [[ "$type_station" == "hva" && ( "$type_consommateur" == "all" || "$type_consommateur" == "indiv" ) ]]; then
     echo "Erreur : La combinaison hva avec all ou indiv est interdite. La seule combinaison possible est comp."
+    afficher_aide
     exit 1
 fi
 
@@ -193,27 +213,27 @@ case $type_station in
                         print $4, $7, $8
                     }' temp/converted_data.csv > temp/lv_all${id_centrale:+_$id_centrale}.csv
 
-                echo "Résultat intermédiaire : temp/lv_all${id_centrale:+_$id_centrale}.csv"
+                echo "Résultat intermédiaire par capacité croissante : temp/lv_all${id_centrale:+_$id_centrale}.csv"
                 "$EXECUTABLE/c-wire" temp/lv_all${id_centrale:+_$id_centrale}.csv > temp/lv_all_result${id_centrale:+_$id_centrale}.csv
                 echo "Résultat final : temp/lv_all_result${id_centrale:+_$id_centrale}.csv"
 
                 # === Traitement supplémentaire pour lv_all_minmax.csv ===
                 # Trier les données par consommation pour extraire les 10 plus grandes et les 10 plus petites consommations
                 # Trier les données par consommation décroissante (les 10 plus grandes consommations)
-                sort -t: -k8,8nr temp/lv_all_result${id_centrale:+_$id_centrale}.csv | head -n 10 > temp/lv_max_10.csv
+                sort -t: -k2,2nr temp/lv_all_result${id_centrale:+_$id_centrale}.csv | head -n 10 > temp/lv_max_10.csv
                 
                 # Trier les données par consommation croissante (les 10 plus faibles consommations)
-                sort -t: -k8,8n temp/lv_all_result${id_centrale:+_$id_centrale}.csv | head -n 10 > temp/lv_min_10.csv
+                sort -t: -k2,2n temp/lv_all_result${id_centrale:+_$id_centrale}.csv | head -n 10 > temp/lv_min_10.csv
                 
                 # Fusionner les fichiers (max et min) dans lv_all_minmax.csv
-                cat temp/lv_max_10.csv temp/lv_min_10.csv > temp/lv_all_minmax.csv
+                cat temp/lv_min_10.csv temp/lv_max_10.csv > temp/lv_all_minmax.csv
                 echo "Fichier lv_all_minmax.csv généré avec succès dans le dossier temp."
                 ;;
         esac
         ;;
     *)
         echo "Erreur : Type de station invalide."
-        cat aide.txt
+        afficher_aide
         ;;
 esac
 

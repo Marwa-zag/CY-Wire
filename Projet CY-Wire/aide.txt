@@ -15,10 +15,11 @@ Arguments obligatoires :
                                 - all   : Tous les consommateurs (uniquement pour 'lv')
 
 Option :
-  -h                           Affiche cette aide détaillée.
+  -h                           Affiche cette aide détaillée. Le fichier aide.txt doit être situé dans le dossier Projet-CY-Wire ou se trouve le fichier c-wire.sh. 
 
 Exemples :
   ./c-wire.sh data.csv hvb comp       Analyse les stations HV-B pour les entreprises.
+  ./c-wire.sh data/data.csv lv all 2  Analyse les postes LV pour tous les consommateurs, filtrés par la centrale 2. (5 centrale disponibles).
   ./c-wire.sh -h                     Affiche cette aide.
 
 Notes :
