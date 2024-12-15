@@ -142,14 +142,11 @@ case $type_station in
                     gsub(/-/, "0", $7);
                     gsub(/-/, "0", $8);
                     print $2, $7, $8
-                }' temp/converted_data.csv > temp/hvb_comp_unsorted${id_centrale:+_$id_centrale}.csv
-
-            # Tri par capacité croissante
-            sort -t: -k2,2n temp/hvb_comp_unsorted${id_centrale:+_$id_centrale}.csv > temp/hvb_comp${id_centrale:+_$id_centrale}.csv
+                }' temp/converted_data.csv > temp/hvb_comp${id_centrale:+_$id_centrale}.csv
 
             echo "Résultat intermédiaire : temp/hvb_comp${id_centrale:+_$id_centrale}.csv"
-            "$EXECUTABLE/c-wire" temp/hvb_comp${id_centrale:+_$id_centrale}.csv > temp/hvb_comp_result${id_centrale:+_$id_centrale}.csv
-            echo "Résultat final : temp/hvb_comp_result${id_centrale:+_$id_centrale}.csv"
+            "$EXECUTABLE/c-wire" temp/hvb_comp${id_centrale:+_$id_centrale}.csv > temp/hvb_comp_somme${id_centrale:+_$id_centrale}.csv
+            echo "Résultat final : temp/hvb_comp_somme${id_centrale:+_$id_centrale}.csv"
         fi
         ;;
     hva)
@@ -163,14 +160,11 @@ case $type_station in
                     gsub(/-/, "0", $7);
                     gsub(/-/, "0", $8);
                     print $3, $7, $8
-                }' temp/converted_data.csv > temp/hva_comp_unsorted${id_centrale:+_$id_centrale}.csv
-
-            # Tri par capacité croissante
-            sort -t: -k2,2n temp/hva_comp_unsorted${id_centrale:+_$id_centrale}.csv > temp/hva_comp${id_centrale:+_$id_centrale}.csv
+                }' temp/converted_data.csv > temp/hva_comp${id_centrale:+_$id_centrale}.csv
 
             echo "Résultat intermédiaire : temp/hva_comp${id_centrale:+_$id_centrale}.csv"
-            "$EXECUTABLE/c-wire" temp/hva_comp${id_centrale:+_$id_centrale}.csv > temp/hva_comp_result${id_centrale:+_$id_centrale}.csv
-            echo "Résultat final : temp/hva_comp_result${id_centrale:+_$id_centrale}.csv"
+            "$EXECUTABLE/c-wire" temp/hva_comp${id_centrale:+_$id_centrale}.csv > temp/hva_comp_somme${id_centrale:+_$id_centrale}.csv
+            echo "Résultat final : temp/hva_comp_somme${id_centrale:+_$id_centrale}.csv"
         fi
         ;;
     lv)
@@ -185,14 +179,11 @@ case $type_station in
                         gsub(/-/, "0", $7);
                         gsub(/-/, "0", $8);
                         print $4, $7, $8
-                    }' temp/converted_data.csv > temp/lv_comp_unsorted${id_centrale:+_$id_centrale}.csv
-
-                # Tri par capacité croissante
-                sort -t: -k2,2n temp/lv_comp_unsorted${id_centrale:+_$id_centrale}.csv > temp/lv_comp${id_centrale:+_$id_centrale}.csv
+                    }' temp/converted_data.csv > temp/lv_comp${id_centrale:+_$id_centrale}.csv
 
                 echo "Résultat intermédiaire : temp/lv_comp${id_centrale:+_$id_centrale}.csv"
-                "$EXECUTABLE/c-wire" temp/lv_comp${id_centrale:+_$id_centrale}.csv > temp/lv_comp_result${id_centrale:+_$id_centrale}.csv
-                echo "Résultat final : temp/lv_comp_result${id_centrale:+_$id_centrale}.csv"
+                "$EXECUTABLE/c-wire" temp/lv_comp${id_centrale:+_$id_centrale}.csv > temp/lv_comp_somme${id_centrale:+_$id_centrale}.csv
+                echo "Résultat final : temp/lv_comp_somme${id_centrale:+_$id_centrale}.csv"
                 ;;
             indiv)
                 sed 's/;/:/g' "$fichier_dat" > temp/converted_data.csv
@@ -204,14 +195,11 @@ case $type_station in
                         gsub(/-/, "0", $7);
                         gsub(/-/, "0", $8);
                         print $4, $7, $8
-                    }' temp/converted_data.csv > temp/lv_indiv_unsorted${id_centrale:+_$id_centrale}.csv
+                    }' temp/converted_data.csv > temp/lv_indiv${id_centrale:+_$id_centrale}.csv
 
-                # Tri par capacité croissante
-                sort -t: -k2,2n temp/lv_indiv_unsorted${id_centrale:+_$id_centrale}.csv > temp/lv_indiv${id_centrale:+_$id_centrale}.csv
-                
                 echo "Résultat intermédiaire : temp/lv_indiv${id_centrale:+_$id_centrale}.csv"
-                "$EXECUTABLE/c-wire" temp/lv_indiv${id_centrale:+_$id_centrale}.csv > temp/lv_indiv_result${id_centrale:+_$id_centrale}.csv
-                echo "Résultat final : temp/lv_indiv_result${id_centrale:+_$id_centrale}.csv"
+                "$EXECUTABLE/c-wire" temp/lv_indiv${id_centrale:+_$id_centrale}.csv > temp/lv_indiv_somme${id_centrale:+_$id_centrale}.csv
+                echo "Résultat final : temp/lv_indiv_somme${id_centrale:+_$id_centrale}.csv"
                 ;;
             all)
                 sed 's/;/:/g' "$fichier_dat" > temp/converted_data.csv
@@ -223,25 +211,22 @@ case $type_station in
                         gsub(/-/, "0", $7);
                         gsub(/-/, "0", $8);
                         print $4, $7, $8
-                    }' temp/converted_data.csv > temp/lv_all_unsorted${id_centrale:+_$id_centrale}.csv
-
-                # Tri par capacité croissante
-                sort -t: -k2,2n temp/lv_all_unsorted${id_centrale:+_$id_centrale}.csv > temp/lv_all${id_centrale:+_$id_centrale}.csv
+                    }' temp/converted_data.csv > temp/lv_all${id_centrale:+_$id_centrale}.csv
 
                 echo "Résultat intermédiaire par capacité croissante : temp/lv_all${id_centrale:+_$id_centrale}.csv"
-                "$EXECUTABLE/c-wire" temp/lv_all${id_centrale:+_$id_centrale}.csv > temp/lv_all_result${id_centrale:+_$id_centrale}.csv
-                echo "Résultat final : temp/lv_all_result${id_centrale:+_$id_centrale}.csv"
+                "$EXECUTABLE/c-wire" temp/lv_all${id_centrale:+_$id_centrale}.csv > temp/lv_all_somme${id_centrale:+_$id_centrale}.csv
+                echo "Résultat final : temp/lv_all_somme${id_centrale:+_$id_centrale}.csv"
 
                 # === Traitement supplémentaire pour lv_all_minmax.csv ===
                 # Trier les données par consommation pour extraire les 10 plus grandes et les 10 plus petites consommations
                 # Trier les données par consommation décroissante (les 10 plus grandes consommations)
-                sort -t: -k3,3nr temp/lv_all_result${id_centrale:+_$id_centrale}.csv | head -n 10 > temp/lv_max_10.csv
+                sort -t: -k3,3nr temp/lv_all_somme${id_centrale:+_$id_centrale}.csv | head -n 10 > temp/lv_max_10.csv
                 
                 # Trier les données par consommation croissante (les 10 plus faibles consommations)
-                sort -t: -k3,3n temp/lv_all_result${id_centrale:+_$id_centrale}.csv | head -n 10 > temp/lv_min_10.csv
+                sort -t: -k3,3n temp/lv_all_somme${id_centrale:+_$id_centrale}.csv | head -n 10 > temp/lv_min_10.csv
                 
                 # Fusionner les fichiers (max et min) dans lv_all_minmax.csv
-                cat temp/lv_min_10.csv temp/lv_max_10.csv > temp/lv_all_minmax.csv
+                cat temp/lv_max_10.csv temp/lv_min_10.csv > temp/lv_all_minmax.csv
                 echo "Fichier lv_all_minmax.csv généré avec succès dans le dossier temp."
                 ;;
         esac
