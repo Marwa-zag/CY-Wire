@@ -184,7 +184,7 @@ case $type_station in
                     }' temp/converted_data.csv > temp/lv_comp${id_centrale:+_$id_centrale}.csv
 
                 echo "Résultat intermédiaire : temp/lv_comp${id_centrale:+_$id_centrale}.csv"
-                echo "Lv:Capacite:Consommation" > temp/lv_comp_result${id_centrale:+_$id_centrale}.csv
+                echo "Lv:Capacite:Consommation(entreprise)" > temp/lv_comp_result${id_centrale:+_$id_centrale}.csv
                 "$EXECUTABLE/c-wire" temp/lv_comp${id_centrale:+_$id_centrale}.csv >> temp/lv_comp_result${id_centrale:+_$id_centrale}.csv
                 echo "Résultat final : temp/lv_comp_result${id_centrale:+_$id_centrale}.csv"
                 ;;
@@ -201,7 +201,7 @@ case $type_station in
                     }' temp/converted_data.csv > temp/lv_indiv${id_centrale:+_$id_centrale}.csv
 
                 echo "Résultat intermédiaire : temp/lv_indiv${id_centrale:+_$id_centrale}.csv"
-                echo "Lv:Capacite:Consommation" > temp/lv_indiv_result${id_centrale:+_$id_centrale}.csv
+                echo "Lv:Capacite:Consommation(particulier))" > temp/lv_indiv_result${id_centrale:+_$id_centrale}.csv
                 "$EXECUTABLE/c-wire" temp/lv_indiv${id_centrale:+_$id_centrale}.csv >> temp/lv_indiv_result${id_centrale:+_$id_centrale}.csv
                 echo "Résultat final : temp/lv_indiv_result${id_centrale:+_$id_centrale}.csv"
                 ;;
@@ -218,7 +218,7 @@ case $type_station in
                     }' temp/converted_data.csv > temp/lv_all${id_centrale:+_$id_centrale}.csv
 
                 echo "Résultat intermédiaire par capacité croissante : temp/lv_all${id_centrale:+_$id_centrale}.csv"
-                echo "Lv:Capacite:Consommation" > temp/lv_all_result${id_centrale:+_$id_centrale}.csv
+                echo "Lv:Capacite:Consommation(tous)" > temp/lv_all_result${id_centrale:+_$id_centrale}.csv
                 "$EXECUTABLE/c-wire" temp/lv_all${id_centrale:+_$id_centrale}.csv >> temp/lv_all_result${id_centrale:+_$id_centrale}.csv
                 echo "Résultat final : temp/lv_all_result${id_centrale:+_$id_centrale}.csv"
 
