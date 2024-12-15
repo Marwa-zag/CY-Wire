@@ -62,6 +62,13 @@ Commencez par insérer votre fichier à trier (data.csv) dans le dossier "data" 
 
   <img width="1157" alt="Capture d’écran 2024-12-15 à 21 12 59" src="https://github.com/user-attachments/assets/2821cf3e-56d2-4508-a97c-b52033278bdb" />
 
+  ## Sources :
+  
+  - Vidéos youtube.
+  - Site internet concernant la partie shell.
+  - TD et CM pour les différentes fonctions des traitements tels que les AVL, les différentes rotations, Shell...
+  
+
 
 
 
