@@ -80,6 +80,7 @@ Station* inserer(Station* racine, int id, float capacite, float somme_conso) {
 
     // Si il y a deja une racine existante:
     if (racine->station_id == id) {
+        racine->capacite += capacite;
         racine->somme_conso += somme_conso;
     } else {
         if (racine->station_id > id) {
