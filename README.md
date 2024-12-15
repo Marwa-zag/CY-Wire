@@ -16,3 +16,19 @@
                                `sudo apt-get install build-essential` (Pour compiler le programme en C, vous aurez besoin d'un compilateur C)
                                `sudo apt-get install make` ( utiliser l'utilitaire Make)
 
+
+# Instructions pour l'éxécution
+
+Commencez par insérer votre fichier à trier (data.csv) dans le dossier "data" prévu pour cela.
+
+- Après avoir récupéré le dossier, donné lui les droits d'éxécution :
+
+                                `chmod +x c-wire.sh`
+
+ - Afin d'afficher la fonction d'aide, il suffit d'éxecuter dans le terminal (avant vérifier si le fichier 'aide.txt' se situe dans le dossier Projet-CY-Wire) :
+                                 `./c-wire.sh -h`
+
+   
+
+  
+
