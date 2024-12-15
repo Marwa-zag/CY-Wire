@@ -25,8 +25,9 @@ Commencez par insérer votre fichier à trier (data.csv) dans le dossier "data" 
 
                                 `chmod +x c-wire.sh`
 
- - Afin d'afficher la fonction d'aide, il suffit d'éxecuter dans le terminal (avant vérifier si le fichier 'aide.txt' se situe dans le dossier Projet-CY-Wire) :
+ - Afin d'afficher la fonction d'aide, il suffit d'éxecuter dans le terminal (avant vérifier si le fichier `aide.txt` se situe dans le dossier Projet-CY-Wire) :
                                  `./c-wire.sh -h`
+   
 
    
 
