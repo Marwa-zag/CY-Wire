@@ -52,7 +52,10 @@ Commencez par insérer votre fichier à trier (data.csv) dans le dossier "data" 
 
                              `./c-wire.sh data/c-wire_v25.dat hva comp 4`
 
-  
+  ## Aperçu d'une éxécution en cours...
+
+  <img width="658" alt="Capture d’écran 2024-12-15 à 21 10 56" src="https://github.com/user-attachments/assets/877c30c4-2260-4f36-90d4-984358581a76" />
+
 
    
 
