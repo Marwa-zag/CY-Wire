@@ -27,6 +27,20 @@ Commencez par insérer votre fichier à trier (data.csv) dans le dossier "data" 
 
  - Afin d'afficher la fonction d'aide, il suffit d'éxecuter dans le terminal (avant vérifier si le fichier `aide.txt` se situe dans le dossier Projet-CY-Wire) :
                                  `./c-wire.sh -h`
+
+
+## Différents types de stations :
+
+                                - hvb : Stations HV-B
+                                - hva : Stations HV-A
+                                - lv  : Postes LV
+
+  ## Différents types de consommateurs :
+  
+                                - comp  : Entreprises
+                                - indiv : Particuliers
+                                - all   : Tous les consommateurs (uniquement pour 'lv')
+
    
 
    
