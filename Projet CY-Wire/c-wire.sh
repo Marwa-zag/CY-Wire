@@ -142,11 +142,13 @@ case $type_station in
                     gsub(/-/, "0", $7);
                     gsub(/-/, "0", $8);
                     print $2, $7, $8
-                }' temp/converted_data.csv > temp/hvb_comp${id_centrale:+_$id_centrale}.csv
+                }' temp/converted_data.csv > temp/hvb_comp_unsorted${id_centrale:+_$id_centrale}.csv
+
+            # Tri par capacité croissante
+            sort -t: -k2,2n temp/hvb_comp_unsorted${id_centrale:+_$id_centrale}.csv > temp/hvb_comp${id_centrale:+_$id_centrale}.csv
 
             echo "Résultat intermédiaire : temp/hvb_comp${id_centrale:+_$id_centrale}.csv"
-            echo "Hvb:Capacite:Consommation" > temp/hvb_comp_result${id_centrale:+_$id_centrale}.csv
-            "$EXECUTABLE/c-wire" temp/hvb_comp${id_centrale:+_$id_centrale}.csv >> temp/hvb_comp_result${id_centrale:+_$id_centrale}.csv
+            "$EXECUTABLE/c-wire" temp/hvb_comp${id_centrale:+_$id_centrale}.csv > temp/hvb_comp_result${id_centrale:+_$id_centrale}.csv
             echo "Résultat final : temp/hvb_comp_result${id_centrale:+_$id_centrale}.csv"
         fi
         ;;
@@ -161,11 +163,13 @@ case $type_station in
                     gsub(/-/, "0", $7);
                     gsub(/-/, "0", $8);
                     print $3, $7, $8
-                }' temp/converted_data.csv > temp/hva_comp${id_centrale:+_$id_centrale}.csv
+                }' temp/converted_data.csv > temp/hva_comp_unsorted${id_centrale:+_$id_centrale}.csv
+
+            # Tri par capacité croissante
+            sort -t: -k2,2n temp/hva_comp_unsorted${id_centrale:+_$id_centrale}.csv > temp/hva_comp${id_centrale:+_$id_centrale}.csv
 
             echo "Résultat intermédiaire : temp/hva_comp${id_centrale:+_$id_centrale}.csv"
-            echo "Hva:Capacite:Consommation" > temp/hva_comp_result${id_centrale:+_$id_centrale}.csv
-            "$EXECUTABLE/c-wire" temp/hva_comp${id_centrale:+_$id_centrale}.csv >> temp/hva_comp_result${id_centrale:+_$id_centrale}.csv
+            "$EXECUTABLE/c-wire" temp/hva_comp${id_centrale:+_$id_centrale}.csv > temp/hva_comp_result${id_centrale:+_$id_centrale}.csv
             echo "Résultat final : temp/hva_comp_result${id_centrale:+_$id_centrale}.csv"
         fi
         ;;
@@ -181,11 +185,13 @@ case $type_station in
                         gsub(/-/, "0", $7);
                         gsub(/-/, "0", $8);
                         print $4, $7, $8
-                    }' temp/converted_data.csv > temp/lv_comp${id_centrale:+_$id_centrale}.csv
+                    }' temp/converted_data.csv > temp/lv_comp_unsorted${id_centrale:+_$id_centrale}.csv
+
+                # Tri par capacité croissante
+                sort -t: -k2,2n temp/lv_comp_unsorted${id_centrale:+_$id_centrale}.csv > temp/lv_comp${id_centrale:+_$id_centrale}.csv
 
                 echo "Résultat intermédiaire : temp/lv_comp${id_centrale:+_$id_centrale}.csv"
-                echo "Lv:Capacite:Consommation(entreprise)" > temp/lv_comp_result${id_centrale:+_$id_centrale}.csv
-                "$EXECUTABLE/c-wire" temp/lv_comp${id_centrale:+_$id_centrale}.csv >> temp/lv_comp_result${id_centrale:+_$id_centrale}.csv
+                "$EXECUTABLE/c-wire" temp/lv_comp${id_centrale:+_$id_centrale}.csv > temp/lv_comp_result${id_centrale:+_$id_centrale}.csv
                 echo "Résultat final : temp/lv_comp_result${id_centrale:+_$id_centrale}.csv"
                 ;;
             indiv)
@@ -198,11 +204,13 @@ case $type_station in
                         gsub(/-/, "0", $7);
                         gsub(/-/, "0", $8);
                         print $4, $7, $8
-                    }' temp/converted_data.csv > temp/lv_indiv${id_centrale:+_$id_centrale}.csv
+                    }' temp/converted_data.csv > temp/lv_indiv_unsorted${id_centrale:+_$id_centrale}.csv
 
+                # Tri par capacité croissante
+                sort -t: -k2,2n temp/lv_indiv_unsorted${id_centrale:+_$id_centrale}.csv > temp/lv_indiv${id_centrale:+_$id_centrale}.csv
+                
                 echo "Résultat intermédiaire : temp/lv_indiv${id_centrale:+_$id_centrale}.csv"
-                echo "Lv:Capacite:Consommation(particulier))" > temp/lv_indiv_result${id_centrale:+_$id_centrale}.csv
-                "$EXECUTABLE/c-wire" temp/lv_indiv${id_centrale:+_$id_centrale}.csv >> temp/lv_indiv_result${id_centrale:+_$id_centrale}.csv
+                "$EXECUTABLE/c-wire" temp/lv_indiv${id_centrale:+_$id_centrale}.csv > temp/lv_indiv_result${id_centrale:+_$id_centrale}.csv
                 echo "Résultat final : temp/lv_indiv_result${id_centrale:+_$id_centrale}.csv"
                 ;;
             all)
@@ -215,20 +223,22 @@ case $type_station in
                         gsub(/-/, "0", $7);
                         gsub(/-/, "0", $8);
                         print $4, $7, $8
-                    }' temp/converted_data.csv > temp/lv_all${id_centrale:+_$id_centrale}.csv
+                    }' temp/converted_data.csv > temp/lv_all_unsorted${id_centrale:+_$id_centrale}.csv
+
+                # Tri par capacité croissante
+                sort -t: -k2,2n temp/lv_all_unsorted${id_centrale:+_$id_centrale}.csv > temp/lv_all${id_centrale:+_$id_centrale}.csv
 
                 echo "Résultat intermédiaire par capacité croissante : temp/lv_all${id_centrale:+_$id_centrale}.csv"
-                echo "Lv:Capacite:Consommation(tous)" > temp/lv_all_result${id_centrale:+_$id_centrale}.csv
-                "$EXECUTABLE/c-wire" temp/lv_all${id_centrale:+_$id_centrale}.csv >> temp/lv_all_result${id_centrale:+_$id_centrale}.csv
+                "$EXECUTABLE/c-wire" temp/lv_all${id_centrale:+_$id_centrale}.csv > temp/lv_all_result${id_centrale:+_$id_centrale}.csv
                 echo "Résultat final : temp/lv_all_result${id_centrale:+_$id_centrale}.csv"
 
                 # === Traitement supplémentaire pour lv_all_minmax.csv ===
-                # Trier les données par capacité pour extraire les 10 plus grandes et les 10 plus petites capacités
-                # Trier les données par capacité décroissante (les 10 plus grandes capacités)
-                sort -t: -k2,2nr temp/lv_all_result${id_centrale:+_$id_centrale}.csv | head -n 10 > temp/lv_max_10.csv
+                # Trier les données par consommation pour extraire les 10 plus grandes et les 10 plus petites consommations
+                # Trier les données par consommation décroissante (les 10 plus grandes consommations)
+                sort -t: -k3,3nr temp/lv_all_result${id_centrale:+_$id_centrale}.csv | head -n 10 > temp/lv_max_10.csv
                 
-                # Trier les données par capacité croissante (les 10 plus faibles capacités)
-                sort -t: -k2,2n temp/lv_all_result${id_centrale:+_$id_centrale}.csv | head -n 10 > temp/lv_min_10.csv
+                # Trier les données par consommation croissante (les 10 plus faibles consommations)
+                sort -t: -k3,3n temp/lv_all_result${id_centrale:+_$id_centrale}.csv | head -n 10 > temp/lv_min_10.csv
                 
                 # Fusionner les fichiers (max et min) dans lv_all_minmax.csv
                 cat temp/lv_min_10.csv temp/lv_max_10.csv > temp/lv_all_minmax.csv
@@ -256,3 +266,50 @@ fi
 
 # Confirmation de la génération du fichier 
 echo "Le fichier $temp/$output_file_name a ete genere avec succès dans le dossier temp."
+
+if command -v gnuplot &> /dev/null; then
+
+    if [ "$type_station" == "lv" ] && [ "$type_consommateur" == "all" ]; then
+        
+        #  Début du traitement du graphique
+        debut_temps=$(date +%s) # Calcul de la duree du traitement
+    
+         echo "Création des graphiques..."
+
+        gnuplot <<- EOF
+
+            set terminal png
+            set style data histograms
+            set style histogram cluster gap 1
+            set style fill solid 1.0 border -1
+            set boxwidth 0.9
+
+            set output "$graphs/graphique_lvminmax.png"
+
+            set title "Graphique lv min et max"
+
+            set xlabel "stations"
+
+            set ylabel "consommation"
+            set datafile separator ":"
+            set xtics rotate by -45
+            set grid ytics
+
+
+            plot "$temp/lv_all_minmax.csv" using 2:xtic(1) title "" with histogram
+
+EOF
+
+        echo "Graphique généré : $graphs/graphique_lvminmax.png"
+
+    fi
+    fin_temps=$(date +%s)
+    duree=$((fin_temps - debut_temps)) # Calcul de la duree du traitement
+    echo "Temps d'execution du graphique : $duree secondes"
+
+else
+
+    echo "GnuPlot non installé. Graphiques non générés."
+
+fi
+
