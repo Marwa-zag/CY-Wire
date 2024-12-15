@@ -145,7 +145,8 @@ case $type_station in
                 }' temp/converted_data.csv > temp/hvb_comp${id_centrale:+_$id_centrale}.csv
 
             echo "Résultat intermédiaire : temp/hvb_comp${id_centrale:+_$id_centrale}.csv"
-            "$EXECUTABLE/c-wire" temp/hvb_comp${id_centrale:+_$id_centrale}.csv > temp/hvb_comp_result${id_centrale:+_$id_centrale}.csv
+            echo "Hvb:Capacite:Consommation" > temp/hvb_comp_result${id_centrale:+_$id_centrale}.csv
+            "$EXECUTABLE/c-wire" temp/hvb_comp${id_centrale:+_$id_centrale}.csv >> temp/hvb_comp_result${id_centrale:+_$id_centrale}.csv
             echo "Résultat final : temp/hvb_comp_result${id_centrale:+_$id_centrale}.csv"
         fi
         ;;
@@ -163,7 +164,8 @@ case $type_station in
                 }' temp/converted_data.csv > temp/hva_comp${id_centrale:+_$id_centrale}.csv
 
             echo "Résultat intermédiaire : temp/hva_comp${id_centrale:+_$id_centrale}.csv"
-            "$EXECUTABLE/c-wire" temp/hva_comp${id_centrale:+_$id_centrale}.csv > temp/hva_comp_result${id_centrale:+_$id_centrale}.csv
+            echo "Hva:Capacite:Consommation" > temp/hva_comp_result${id_centrale:+_$id_centrale}.csv
+            "$EXECUTABLE/c-wire" temp/hva_comp${id_centrale:+_$id_centrale}.csv >> temp/hva_comp_result${id_centrale:+_$id_centrale}.csv
             echo "Résultat final : temp/hva_comp_result${id_centrale:+_$id_centrale}.csv"
         fi
         ;;
@@ -182,7 +184,8 @@ case $type_station in
                     }' temp/converted_data.csv > temp/lv_comp${id_centrale:+_$id_centrale}.csv
 
                 echo "Résultat intermédiaire : temp/lv_comp${id_centrale:+_$id_centrale}.csv"
-                "$EXECUTABLE/c-wire" temp/lv_comp${id_centrale:+_$id_centrale}.csv > temp/lv_comp_result${id_centrale:+_$id_centrale}.csv
+                echo "Lv:Capacite:Consommation" > temp/lv_comp_result${id_centrale:+_$id_centrale}.csv
+                "$EXECUTABLE/c-wire" temp/lv_comp${id_centrale:+_$id_centrale}.csv >> temp/lv_comp_result${id_centrale:+_$id_centrale}.csv
                 echo "Résultat final : temp/lv_comp_result${id_centrale:+_$id_centrale}.csv"
                 ;;
             indiv)
@@ -198,7 +201,8 @@ case $type_station in
                     }' temp/converted_data.csv > temp/lv_indiv${id_centrale:+_$id_centrale}.csv
 
                 echo "Résultat intermédiaire : temp/lv_indiv${id_centrale:+_$id_centrale}.csv"
-                "$EXECUTABLE/c-wire" temp/lv_indiv${id_centrale:+_$id_centrale}.csv > temp/lv_indiv_result${id_centrale:+_$id_centrale}.csv
+                echo "Lv:Capacite:Consommation" > temp/lv_indiv_result${id_centrale:+_$id_centrale}.csv
+                "$EXECUTABLE/c-wire" temp/lv_indiv${id_centrale:+_$id_centrale}.csv >> temp/lv_indiv_result${id_centrale:+_$id_centrale}.csv
                 echo "Résultat final : temp/lv_indiv_result${id_centrale:+_$id_centrale}.csv"
                 ;;
             all)
@@ -214,7 +218,8 @@ case $type_station in
                     }' temp/converted_data.csv > temp/lv_all${id_centrale:+_$id_centrale}.csv
 
                 echo "Résultat intermédiaire par capacité croissante : temp/lv_all${id_centrale:+_$id_centrale}.csv"
-                "$EXECUTABLE/c-wire" temp/lv_all${id_centrale:+_$id_centrale}.csv > temp/lv_all_result${id_centrale:+_$id_centrale}.csv
+                echo "Lv:Capacite:Consommation" > temp/lv_all_result${id_centrale:+_$id_centrale}.csv
+                "$EXECUTABLE/c-wire" temp/lv_all${id_centrale:+_$id_centrale}.csv >> temp/lv_all_result${id_centrale:+_$id_centrale}.csv
                 echo "Résultat final : temp/lv_all_result${id_centrale:+_$id_centrale}.csv"
 
                 # === Traitement supplémentaire pour lv_all_minmax.csv ===
