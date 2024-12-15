@@ -3,6 +3,7 @@
  Emma Danan
  Amine Taki
  Marwa Zagliz
+ Préing2 MEF1
 
  # Instructions avant la compilation
 - Si vous utilisez les systèmes Ubuntu ou bien Debian, veuillez mettre à jour la liste des paquets disponibles à partir des dépôts logiciels configurés sur votre système :
@@ -56,6 +57,17 @@ Commencez par insérer votre fichier à trier (data.csv) dans le dossier "data" 
 
   <img width="658" alt="Capture d’écran 2024-12-15 à 21 10 56" src="https://github.com/user-attachments/assets/877c30c4-2260-4f36-90d4-984358581a76" />
 
+  
+  ## Aperçu de la fonction d'affichage
+
+  <img width="1157" alt="Capture d’écran 2024-12-15 à 21 12 59" src="https://github.com/user-attachments/assets/2821cf3e-56d2-4508-a97c-b52033278bdb" />
+
+
+
+
+  
+
+  
 
    
 
