@@ -41,7 +41,18 @@ Commencez par insérer votre fichier à trier (data.csv) dans le dossier "data" 
                                 - indiv : Particuliers
                                 - all   : Tous les consommateurs (uniquement pour 'lv')
 
-   
+
+## Exemples d'exécutions appelées :
+
+- Afficher le résultat demandé pour la station HVB avec son type de consommateur :
+         
+                           `./c-wire.sh data/c-wire_v25.dat hvb comp`
+
+- Afficher le résultat demandé pour la station HVA avec son type de consommateur et l'ID de la centrale souhaitée :
+
+                             `./c-wire.sh data/c-wire_v25.dat hva comp 4`
+
+  
 
    
 
