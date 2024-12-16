@@ -132,20 +132,20 @@ echo "Traitement en cours pour le type de station '$type_station' et consommateu
 case $type_station in
     hvb)
         if [[ "$type_consommateur" == "comp" ]]; then
-            # Convertir les ; en : dans le fichier source
+            # Convertit les ; en : dans le fichier source
             sed 's/;/:/g' "$fichier_dat" > temp/converted_data.csv
 
-            # Appliquer le filtre avec le séparateur et filtrage optionnel par centrale
+            # Applique le filtre avec le séparateur et filtrage optionnel par centrale
             awk -F':' -v central="$id_centrale" '
                 BEGIN { FS=":"; OFS=":" }
                 (central == "" || $1 == central) && $2 != "-" && $3 == "-" && $4 == "-" && $6 == "-" {
-                    gsub(/-/, "0", $7);
+                    gsub(/-/, "0", $7); 
                     gsub(/-/, "0", $8);
                     print $2, $7, $8
-                }' temp/converted_data.csv > temp/hvb_comp${id_centrale:+_$id_centrale}.csv
+                }' temp/converted_data.csv  | sort -t: -k2,2n > temp/hvb_comp${id_centrale:+_$id_centrale}.csv
 
             echo "Résultat intermédiaire : temp/hvb_comp${id_centrale:+_$id_centrale}.csv"
-            "$EXECUTABLE/c-wire" temp/hvb_comp${id_centrale:+_$id_centrale}.csv > temp/hvb_comp_somme${id_centrale:+_$id_centrale}.csv
+            "$EXECUTABLE/c-wire" temp/hvb_comp${id_centrale:+_$id_centrale}.csv | sort -t: -k2,2n > temp/hvb_comp_somme${id_centrale:+_$id_centrale}.csv
             echo "Résultat final : temp/hvb_comp_somme${id_centrale:+_$id_centrale}.csv"
         fi
         ;;
@@ -153,17 +153,17 @@ case $type_station in
         if [[ "$type_consommateur" == "comp" ]]; then
             sed 's/;/:/g' "$fichier_dat" > temp/converted_data.csv
 
-            # Appliquer le filtre avec le séparateur et filtrage optionnel par centrale
+            # Applique le filtre avec le séparateur et filtrage optionnel par centrale
             awk -F':' -v central="$id_centrale" '
                 BEGIN { FS=":"; OFS=":" }
                 (central == "" || $1 == central) && $3 != "-" && $6 == "-" {
                     gsub(/-/, "0", $7);
                     gsub(/-/, "0", $8);
                     print $3, $7, $8
-                }' temp/converted_data.csv > temp/hva_comp${id_centrale:+_$id_centrale}.csv
+                }' temp/converted_data.csv | sort -t: -k2,2n > temp/hva_comp${id_centrale:+_$id_centrale}.csv
 
             echo "Résultat intermédiaire : temp/hva_comp${id_centrale:+_$id_centrale}.csv"
-            "$EXECUTABLE/c-wire" temp/hva_comp${id_centrale:+_$id_centrale}.csv > temp/hva_comp_somme${id_centrale:+_$id_centrale}.csv
+            "$EXECUTABLE/c-wire" temp/hva_comp${id_centrale:+_$id_centrale}.csv | sort -t: -k2,2n  > temp/hva_comp_somme${id_centrale:+_$id_centrale}.csv
             echo "Résultat final : temp/hva_comp_somme${id_centrale:+_$id_centrale}.csv"
         fi
         ;;
@@ -172,60 +172,61 @@ case $type_station in
             comp)
                 sed 's/;/:/g' "$fichier_dat" > temp/converted_data.csv
 
-                # Appliquer le filtre avec le séparateur et filtrage optionnel par centrale
+                # Applique le filtre avec le séparateur et filtrage optionnel par centrale
                 awk -F':' -v central="$id_centrale" '
                     BEGIN { FS=":"; OFS=":" }
                     (central == "" || $1 == central) && $4 != "-" && $6 == "-" {
                         gsub(/-/, "0", $7);
                         gsub(/-/, "0", $8);
                         print $4, $7, $8
-                    }' temp/converted_data.csv > temp/lv_comp${id_centrale:+_$id_centrale}.csv
+                    }' temp/converted_data.csv | sort -t: -k2,2n > temp/lv_comp${id_centrale:+_$id_centrale}.csv
 
                 echo "Résultat intermédiaire : temp/lv_comp${id_centrale:+_$id_centrale}.csv"
-                "$EXECUTABLE/c-wire" temp/lv_comp${id_centrale:+_$id_centrale}.csv > temp/lv_comp_somme${id_centrale:+_$id_centrale}.csv
+                "$EXECUTABLE/c-wire" temp/lv_comp${id_centrale:+_$id_centrale}.csv | sort -t: -k2,2n  > temp/lv_comp_somme${id_centrale:+_$id_centrale}.csv
                 echo "Résultat final : temp/lv_comp_somme${id_centrale:+_$id_centrale}.csv"
                 ;;
             indiv)
                 sed 's/;/:/g' "$fichier_dat" > temp/converted_data.csv
 
-                # Appliquer le filtre avec le séparateur et filtrage optionnel par centrale
+                # Applique le filtre avec le séparateur et filtrage optionnel par centrale
                 awk -F':' -v central="$id_centrale" '
                     BEGIN { FS=":"; OFS=":" }
                     (central == "" || $1 == central) && $4 != "-" && $5 == "-" {
                         gsub(/-/, "0", $7);
                         gsub(/-/, "0", $8);
                         print $4, $7, $8
-                    }' temp/converted_data.csv > temp/lv_indiv${id_centrale:+_$id_centrale}.csv
+                    }' temp/converted_data.csv | sort -t: -k2,2n > temp/lv_indiv${id_centrale:+_$id_centrale}.csv
 
                 echo "Résultat intermédiaire : temp/lv_indiv${id_centrale:+_$id_centrale}.csv"
-                "$EXECUTABLE/c-wire" temp/lv_indiv${id_centrale:+_$id_centrale}.csv > temp/lv_indiv_somme${id_centrale:+_$id_centrale}.csv
+                "$EXECUTABLE/c-wire" temp/lv_indiv${id_centrale:+_$id_centrale}.csv | sort -t: -k2,2n  > temp/lv_indiv_somme${id_centrale:+_$id_centrale}.csv
                 echo "Résultat final : temp/lv_indiv_somme${id_centrale:+_$id_centrale}.csv"
                 ;;
             all)
                 sed 's/;/:/g' "$fichier_dat" > temp/converted_data.csv
 
-                # Filtrer les données pour ignorer l'en-tête et les lignes mal formées
+                # Filtre les données pour ignorer l'en-tête et les lignes mal formées
                 awk -F':' -v central="$id_centrale" '
                     BEGIN { FS=":"; OFS=":" }
                     NR > 1 && (central == "" || $1 == central) && $4 != "-" && $7 != "" && $8 != "" {
                         gsub(/-/, "0", $7);
                         gsub(/-/, "0", $8);
                         print $4, $7, $8
-                    }' temp/converted_data.csv > temp/lv_all${id_centrale:+_$id_centrale}.csv
+                    }' temp/converted_data.csv | sort -t: -k2,2n > temp/lv_all${id_centrale:+_$id_centrale}.csv
 
                 echo "Résultat intermédiaire par capacité croissante : temp/lv_all${id_centrale:+_$id_centrale}.csv"
-                "$EXECUTABLE/c-wire" temp/lv_all${id_centrale:+_$id_centrale}.csv > temp/lv_all_somme${id_centrale:+_$id_centrale}.csv
+                "$EXECUTABLE/c-wire" temp/lv_all${id_centrale:+_$id_centrale}.csv | sort -t: -k2,2n  > temp/lv_all_somme${id_centrale:+_$id_centrale}.csv
                 echo "Résultat final : temp/lv_all_somme${id_centrale:+_$id_centrale}.csv"
 
                 # === Traitement supplémentaire pour lv_all_minmax.csv ===
-                # Trier les données par consommation pour extraire les 10 plus grandes et les 10 plus petites consommations
-                # Trier les données par consommation décroissante (les 10 plus grandes consommations)
+               
+
+                # Trie les données par consommation : les 10 plus grandes consommations
                 sort -t: -k3,3nr temp/lv_all_somme${id_centrale:+_$id_centrale}.csv | head -n 10 > temp/lv_max_10.csv
                 
-                # Trier les données par consommation croissante (les 10 plus faibles consommations)
+                # Trie les données par consommation : les 10 plus faibles consommations
                 sort -t: -k3,3n temp/lv_all_somme${id_centrale:+_$id_centrale}.csv | head -n 10 > temp/lv_min_10.csv
                 
-                # Fusionner les fichiers (max et min) dans lv_all_minmax.csv
+                # Fusionne les fichiers max et min dans lv_all_minmax.csv
                 cat temp/lv_max_10.csv temp/lv_min_10.csv > temp/lv_all_minmax.csv
                 echo "Fichier lv_all_minmax.csv généré avec succès dans le dossier temp."
                 ;;
@@ -251,6 +252,10 @@ fi
 
 # Confirmation de la génération du fichier 
 echo "Le fichier $temp/$output_file_name a ete genere avec succès dans le dossier temp."
+
+
+# === Bonus ===
+
 
 if command -v gnuplot &> /dev/null; then
 
@@ -297,4 +302,3 @@ else
     echo "GnuPlot non installé. Graphiques non générés."
 
 fi
-
