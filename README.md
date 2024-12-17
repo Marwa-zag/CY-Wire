@@ -43,7 +43,9 @@ Créer un dossier "data". Insérer votre fichier à trier (data.csv) dans le dos
  - Afin d'afficher la fonction d'aide, il suffit d'éxecuter dans le terminal (avant vérifier si le fichier `aide.txt` se situe dans le dossier Projet-CY-Wire) :
                                  `./c-wire.sh -h`
 
-
+- Afficher le résultat demandé pour la station HVA avec son type de consommateur :
+         
+                           ./c-wire.sh data/c-wire_v25.dat hva comp
 
 
 
@@ -62,9 +64,10 @@ Créer un dossier "data". Insérer votre fichier à trier (data.csv) dans le dos
 
 ## Exemples d'exécutions appelées :
 
-- Afficher le résultat demandé pour la station HVB avec son type de consommateur :
+- Afficher la somme des consommations et des capacités pour la station HVB avec son type de consommateur :
          
                            ./c-wire.sh data/c-wire_v25.dat hvb comp
+  
 
 - Afficher le résultat demandé pour la station HVA avec son type de consommateur et l'ID de la centrale souhaitée :
 
