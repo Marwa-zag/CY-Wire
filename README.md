@@ -34,6 +34,7 @@ Créer un dossier "data". Insérer votre fichier à trier (data.csv) dans le dos
   
                 - Supprimez les fichiers compilés pour repartir sur une base propre :
                                                        `make clean`
+  
                 -  Puis compilez le projet en respectant les règles définies dans le Makefile :
                                                        `make`
   
