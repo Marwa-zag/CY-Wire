@@ -26,8 +26,22 @@ Créer un dossier "data". Insérer votre fichier à trier (data.csv) dans le dos
 
                                 `chmod +x c-wire.sh`
 
+- Avant d'éxecuter le programme C, veuillez donner les droits d'éxécution au dossier "progC" :
+                                 `chmod +x progC`
+
+Ensuite veuillez accéder au dossier progC : 
+                           `cd progC`
+Ensuite veuillez supprimer les fichiers compilés pour repartir sur une base propre et enfin à compiler le projet en suivant les règles du Makefile. Apeès avoir fait cela veuillez quitter le dossier progC et revenir dans le dossier d'origine Projet-CY-Wire :
+                            `make clean`
+                            `make`
+                            ` cd -`
+
  - Afin d'afficher la fonction d'aide, il suffit d'éxecuter dans le terminal (avant vérifier si le fichier `aide.txt` se situe dans le dossier Projet-CY-Wire) :
                                  `./c-wire.sh -h`
+
+
+
+
 
 
 ## Différents types de stations :
