@@ -5,7 +5,7 @@
  Marwa Zagliz
  Préing2 MEF1
 
- # Structure du projet
+ # Structure du dossier Projet-CY-Wire
  
 <img width="1015" alt="Capture d’écran 2024-12-17 à 13 59 01" src="https://github.com/user-attachments/assets/6fb303fc-ed67-4721-a149-3c4421e2a4f3" />
 
