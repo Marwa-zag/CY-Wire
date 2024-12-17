@@ -75,6 +75,21 @@ Créer un dossier "data". Insérer votre fichier à trier (data.csv) dans le dos
 
                              ./c-wire.sh data/c-wire_v25.dat hva comp 4
 
+  ## Fichiers de sortie après l'exécution du programme:
+
+  - Pour la station HVB/HVA, son type de consommateur comp et pour la station LV, son type de consommateur indiv et comp :
+    * Par exemple pour la station HVB :
+                             - converted_data.csv : convertit les sépareteurs du fichier ';' en ':'
+                             - hvb_comp.csv ; récupére l'ID de la station, sa capacité et sa consommation.
+                             - hv_comp_somme.csv : récupére l'ID de la station, la somme de la capacité et la consommation.
+
+-  Pour la station LV, son type de consommateur all :
+                             - converted_data.csv : convertit les sépareteurs du fichier ';' en ':'
+                             - lv_all.csv ; récupére l'ID de la station, sa capacité et sa consommation.
+                             - lv_all_somme.csv : récupére l'ID de la station, la somme de la capacité et la consommation.
+                             - lv_max_10.csv : Trie les données par consommation, les 10 plus grandes consommations.
+                             - lv_min_10.csv : Trie les données par consommation, les 10 plus faibles consommations.
+
   ## Aperçu d'une éxécution en cours...
 
   <img width="658" alt="Capture d’écran 2024-12-15 à 21 10 56" src="https://github.com/user-attachments/assets/877c30c4-2260-4f36-90d4-984358581a76" />
