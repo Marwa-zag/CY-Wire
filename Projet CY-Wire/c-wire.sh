@@ -291,11 +291,11 @@ if command -v gnuplot &> /dev/null; then
 EOF
 
         echo "Graphique généré : $graphs/graphique_lvminmax.png"
+        fin_temps=$(date +%s)
+        duree=$((fin_temps - debut_temps)) # Calcul de la duree du traitement
+        echo "Temps d'execution du graphique : $duree secondes"
 
     fi
-    fin_temps=$(date +%s)
-    duree=$((fin_temps - debut_temps)) # Calcul de la duree du traitement
-    echo "Temps d'execution du graphique : $duree secondes"
 
 else
 
