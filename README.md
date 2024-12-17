@@ -20,7 +20,7 @@
 
 # Instructions pour l'éxécution
 
-Commencez par insérer votre fichier à trier (data.csv) dans le dossier "data" prévu pour cela.
+Créer un dossier "data". Insérer votre fichier à trier (data.csv) dans le dossier "data" prévu pour cela.
 
 - Après avoir récupéré le dossier, donné lui les droits d'éxécution :
 
