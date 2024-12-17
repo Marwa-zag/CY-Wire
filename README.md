@@ -32,8 +32,9 @@ Créer un dossier "data". Insérer votre fichier à trier (data.csv) dans le dos
                 - Ensuite, accédez au dossier progC :
                                                        `cd progC`
   
-                - Supprimez les fichiers compilés pour repartir sur une base propre, puis compilez le projet en respectant les règles définies dans le Makefile :
+                - Supprimez les fichiers compilés pour repartir sur une base propre :
                                                        `make clean`
+                -  Puis compilez le projet en respectant les règles définies dans le Makefile :
                                                        `make`
   
                 - Enfin, quittez le dossier progC et revenez dans le dossier d'origine Projet-CY-Wire :
