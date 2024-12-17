@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "avl.h"
 
+// Retourne le maximum entre deux entiers
 int max(int a, int b) {
     if (a>b) {
         return a;
@@ -11,6 +12,7 @@ int max(int a, int b) {
     }
 }
 
+// Retourne la hauteur d'une station
 int hauteur(Station* station) {
     if (station == NULL) { 
         return 0;
@@ -20,6 +22,7 @@ int hauteur(Station* station) {
     }
 }
 
+// Rotation gauche pour équilibrer un sous-arbre
 Station* rotationGauche(Station* y) {
     if (y == NULL || y->fd == NULL) {
         return y;
@@ -37,6 +40,7 @@ Station* rotationGauche(Station* y) {
     return x;
 }
 
+// Rotation droite pour équilibrer un sous-arbre
 Station* rotationDroite(Station* x) {
     if (x == NULL || x->fg == NULL) {
         return x;
@@ -54,10 +58,12 @@ Station* rotationDroite(Station* x) {
     return y;
 }
 
+// Retourne le facteur d'équilibre d'un nœud
 int equilibrerAVL(Station* station) {
     return (station == NULL) ? 0 : hauteur(station->fg) - hauteur(station->fd);
 }
 
+// Insère une station dans l'arbre AVL
 Station* inserer(Station* racine, int id, float capacite, float somme_conso) {
      if (racine == NULL) {
         //création d'un noeud racine sans sous-arbre gauche et droit et return de la racine
@@ -80,6 +86,7 @@ Station* inserer(Station* racine, int id, float capacite, float somme_conso) {
 
     // Si il y a deja une racine existante:
     if (racine->station_id == id) {
+        // Mise à jour des données existantes
         racine->capacite += capacite;
         racine->somme_conso += somme_conso;
     } else {
@@ -91,8 +98,10 @@ Station* inserer(Station* racine, int id, float capacite, float somme_conso) {
 
         racine->hauteur = 1 + max(hauteur(racine->fg), hauteur(racine->fd));
 
+        // Vérifie et corrige l'équilibre
         int equilibre = equilibrerAVL(racine);
-
+        
+        // Cas déséquilibrés : rotations nécessaires
         if (equilibre > 1) {
             if (id < racine->station_id) {
                 return rotationDroite(racine);
@@ -115,6 +124,7 @@ Station* inserer(Station* racine, int id, float capacite, float somme_conso) {
     return racine;
 }
 
+// Parcours infixe pour afficher les stations
 void parcourinfixe(Station* racine) {
     if (racine == NULL) {
         return;
@@ -125,6 +135,7 @@ void parcourinfixe(Station* racine) {
     parcourinfixe(racine->fd);
 }
 
+// Libère la mémoire allouée pour l'arbre
 void libererMemoire(Station* racine) {
     if (racine != NULL) {
         libererMemoire(racine->fg);
