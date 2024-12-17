@@ -47,11 +47,11 @@ Commencez par insérer votre fichier à trier (data.csv) dans le dossier "data" 
 
 - Afficher le résultat demandé pour la station HVB avec son type de consommateur :
          
-                           `./c-wire.sh data/c-wire_v25.dat hvb comp`
+                           ./c-wire.sh data/c-wire_v25.dat hvb comp
 
 - Afficher le résultat demandé pour la station HVA avec son type de consommateur et l'ID de la centrale souhaitée :
 
-                             `./c-wire.sh data/c-wire_v25.dat hva comp 4`
+                             ./c-wire.sh data/c-wire_v25.dat hva comp 4
 
   ## Aperçu d'une éxécution en cours...
 
