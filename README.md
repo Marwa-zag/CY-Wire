@@ -5,6 +5,38 @@
  Marwa Zagliz
  Préing2 MEF1
 
+ # Structure du projet
+
+ Projet-CY-Wire/
+│
+├── data/              # Contient le fichier de données CSV (data.csv)
+│   └── c-wire_v25.dat
+│
+├── progC/              # Contient le code source C et les fichiers associés
+│   ├── main.c          # Programme principal en C
+│   ├── avl.c           # Module pour gérer les AVL
+│   ├── avl.h           # Header du module AVL        
+│   ├── Makefile        # Règles pour compiler le projet
+│   └── c-wire          # Exécutable généré après compilation
+│
+├── temp/              # Résultats d'exécution pour tests HVB
+│   ├── converted_data.csv      # fichier qui convertit le séparateur ; en :
+│   ├── hvb_comp.csv            # Résultats pour HVB avec tous les entreprises
+│   └── hvb_somme_comp.csv      # Résultats pour HVB avec tous les entreprises, incluant la somme des capacités et des consommations
+│
+├── test/                # Fichiers créés pendant l'exécution (un exemple)
+│   └── *               
+│
+├── graphs/             # Graphiques générés 
+│   ├── lv_minmax.png   # Barres des 10 postes LV les plus et moins chargés
+│   
+│
+├── c-wire.sh           # Script Shell pour automatiser les traitements
+│
+├── descriptif.pdf      # Rapport du projet
+└── README.md           # Instructions pour compiler et exécuter le projet
+
+
  # Instructions avant la compilation
 - Si vous utilisez les systèmes Ubuntu ou bien Debian, veuillez mettre à jour la liste des paquets disponibles à partir des dépôts logiciels configurés sur votre système :
 
