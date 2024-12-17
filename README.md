@@ -65,7 +65,7 @@ Commencez par insérer votre fichier à trier (data.csv) dans le dossier "data" 
   ## Sources :
   
   - Vidéos youtube.
-  - Site internet concernant la partie shell.
+  - Site internet concernant la partie shell et C.
   - TD et CM pour les différentes fonctions des traitements tels que les AVL, les différentes rotations, Shell...
   
 
