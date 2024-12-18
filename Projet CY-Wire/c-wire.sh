@@ -273,18 +273,14 @@ if command -v gnuplot &> /dev/null; then
             set style histogram cluster gap 1
             set style fill solid 1.0 border -1
             set boxwidth 0.9
-
             set output "$graphs/graphique_lvminmax.png"
 
             set title "Graphique lv min et max"
-
             set xlabel "stations"
-
             set ylabel "consommation"
             set datafile separator ":"
             set xtics rotate by -45
             set grid ytics
-
 
             plot "$temp/lv_all_minmax.csv" using 2:xtic(1) title "" with histogram
 
@@ -296,6 +292,7 @@ EOF
         echo "Temps d'execution du graphique : $duree secondes"
 
     fi
+    
 
 else
 
