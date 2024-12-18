@@ -64,7 +64,7 @@ int equilibrerAVL(Station* station) {
 }
 
 // Insère une station dans l'arbre AVL
-Station* inserer(Station* racine, int id, float capacite, float somme_conso) {
+Station* inserer(Station* racine, int id, long long capacite, long long somme_conso) {
      if (racine == NULL) {
         //création d'un noeud racine sans sous-arbre gauche et droit et return de la racine
          Station* nouveau = (Station*)malloc(sizeof(Station));
@@ -129,9 +129,8 @@ void parcourinfixe(Station* racine) {
     if (racine == NULL) {
         return;
     }
-    
     parcourinfixe(racine->fg);
-    printf("%d:%.0f:%.0f\n", racine->station_id, racine->capacite, racine->somme_conso);
+    printf("%d:%lld:%lld\n", racine->station_id, racine->capacite, racine->somme_conso);
     parcourinfixe(racine->fd);
 }
 

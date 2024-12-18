@@ -31,13 +31,14 @@ int main(int argc, char* argv[]){
         }
         
         int station_id;
-        long capacite, somme_conso;
+        long long capacite, somme_conso;
         
         // Lecture des colonnes nécessaires
-        if (sscanf(ligne, "%d:%ld:%ld", &station_id, &capacite, &somme_conso) != 3) {
+        if (sscanf(ligne, "%d:%lld:%lld", &station_id, &capacite, &somme_conso) != 3) {
             fprintf(stderr, "Erreur de lecture de la ligne : %s\n", ligne);
             continue;
-            }
+        }
+
         racine = inserer(racine, station_id, capacite, somme_conso);
     }
 
