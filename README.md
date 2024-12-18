@@ -6,8 +6,8 @@
  Préing2 MEF1
 
  # Structure du dossier Projet-CY-Wire
- 
-<img width="1015" alt="Capture d’écran 2024-12-17 à 13 59 01" src="https://github.com/user-attachments/assets/6fb303fc-ed67-4721-a149-3c4421e2a4f3" />
+
+<img width="841" alt="Capture d’écran 2024-12-18 à 10 50 28" src="https://github.com/user-attachments/assets/fe646777-a5c4-4646-8e49-75e3383539dc" />
 
  
 
