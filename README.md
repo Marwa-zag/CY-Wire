@@ -96,7 +96,8 @@ Créer un dossier "data". Insérer votre fichier à trier (data.csv) dans le dos
    * `lv_all_somme.csv` : récupére l'ID de la station, la somme de la capacité et la consommation.
    * `lv_max_10.csv` : Trie les données par consommation, les 10 plus grandes consommations.
    * `lv_min_10.csv` : Trie les données par consommation, les 10 plus faibles consommations.
-   * `lv_all_minmax.csv` : Trie les données par consommation, fusionne les fichiers max et min.
+   * `lv_all_minmax.csv` : Trie les données en fonction de la valeur croissante de la différence entre la capacité totale et la consommation totale, fusionne les fichiers max et min.
+   * `diff_sorted.csv` :  la différence entre la capacité totale et la consommation totale, et trie les données en fonction de la valeur croissante de la différence entre la capacité totale 
 
   ## Aperçu d'une éxécution en cours...
 
