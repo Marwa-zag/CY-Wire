@@ -217,17 +217,23 @@ case $type_station in
                 "$EXECUTABLE/c-wire" temp/lv_all${id_centrale:+_$id_centrale}.csv | sort -t: -k2,2n  > temp/lv_all_somme${id_centrale:+_$id_centrale}.csv
                 echo "Résultat final : temp/lv_all_somme${id_centrale:+_$id_centrale}.csv"
 
-                # === Traitement supplémentaire pour lv_all_minmax.csv ===
-               
+               # === Traitement supplémentaire pour lv_all_minmax.csv ===
 
-                # Trie les données par consommation : les 10 plus grandes consommations
-                sort -t: -k3,3nr temp/lv_all_somme${id_centrale:+_$id_centrale}.csv | head -n 10 > temp/lv_max_10.csv
-                
-                # Trie les données par consommation : les 10 plus faibles consommations
-                sort -t: -k3,3n temp/lv_all_somme${id_centrale:+_$id_centrale}.csv | head -n 10 > temp/lv_min_10.csv
-                
-                # Fusionne les fichiers max et min dans lv_all_minmax.csv
-                cat temp/lv_max_10.csv temp/lv_min_10.csv > temp/lv_all_minmax.csv
+                # calcule la différence (capacité - consommation), puis trie
+                awk -F':' -v central="$id_centrale" ' {
+                    diff = $2 - $3;
+                    printf "%s:%s:%s:%.0f\n", $1, $2, $3, diff;
+                }' "$temp/lv_all_somme${id_centrale:+_$id_centrale}.csv" | sort -t: -k4,4n -k1,1n > "$temp/diff_sorted.csv"
+
+                # Sélectionne les 10 postes avec les plus petites différences et les 10 plus grandes, en excluant les doublons
+                awk -F':' '!seen[$1]++' "$temp/diff_sorted.csv" | {
+                    head -n 10 > "$temp/lv_min_10.csv"
+                    tail -n 10 > "$temp/lv_max_10.csv"
+                }
+
+                # Fusionne les résultats dans le fichier final
+                cat "$temp/lv_min_10.csv" "$temp/lv_max_10.csv" | awk -F':' '!seen[$1]++' | sort -t: -k4,4n | cut -d: -f1-3 > "$temp/lv_all_minmax.csv"
+
                 echo "Fichier lv_all_minmax.csv généré avec succès dans le dossier temp."
                 ;;
         esac
@@ -254,45 +260,53 @@ fi
 echo "Le fichier $temp/$output_file_name a ete genere avec succès dans le dossier temp."
 
 
-# === Bonus ===
+#  ===================== Bonus =====================
 
 
 if command -v gnuplot &> /dev/null; then
 
     if [ "$type_station" == "lv" ] && [ "$type_consommateur" == "all" ]; then
         
-        #  Début du traitement du graphique
-        debut_temps=$(date +%s) # Calcul de la duree du traitement
-    
-         echo "Création des graphiques..."
+        # Début du traitement du graphique
+        debut_temps=$(date +%s) # Calcul de la durée du traitement
+
+        echo "Création des graphiques..."
 
         gnuplot <<- EOF
 
+            # Configuration de l'image
             set terminal png
+            set output "$graphs/graphique_lvminmax.png"
+
+            # Style et labels
             set style data histograms
             set style histogram cluster gap 1
             set style fill solid 1.0 border -1
-            set boxwidth 0.9
-            set output "$graphs/graphique_lvminmax.png"
-
-            set title "Graphique lv min et max"
-            set xlabel "stations"
-            set ylabel "consommation"
-            set datafile separator ":"
-            set xtics rotate by -45
+            set boxwidth 0.8
+            set title "Top 10 Consommations Maximales et Minimales"
+            set xlabel "Stations" font "Arial,10"
+            set ylabel "Consommation (kWh)" font "Arial,10"
             set grid ytics
+            set key autotitle columnheader
+            set xtics rotate by -45 font "Arial,8"
 
-            plot "$temp/lv_all_minmax.csv" using 2:xtic(1) title "" with histogram
+            # Définir des couleurs spécifiques
+            MaxColor = "#FF6347"  # Rouge pour les maximales
+            MinColor = "#32CD32"  # Vert pour les minimales
+
+            # Données d'entrée et tracé
+            set datafile separator ":"
+            plot "$temp/lv_all_minmax.csv" using 2:xtic(1) title "Top 10 Moins Excessives" linecolor rgb MinColor, \
+                 '' using 3:xtic(1) title "Top 10 Plus Excessives" linecolor rgb MaxColor
 
 EOF
 
         echo "Graphique généré : $graphs/graphique_lvminmax.png"
         fin_temps=$(date +%s)
-        duree=$((fin_temps - debut_temps)) # Calcul de la duree du traitement
-        echo "Temps d'execution du graphique : $duree secondes"
+        duree=$((fin_temps - debut_temps)) # Calcul de la durée du traitement
+        echo "Temps d'exécution du graphique : $duree secondes"
 
     fi
-    
 
 else
 
