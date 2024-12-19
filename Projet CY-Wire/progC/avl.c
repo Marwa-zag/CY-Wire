@@ -65,64 +65,63 @@ int equilibrerAVL(Station* station) {
 
 // Insère une station dans l'arbre AVL
 Station* inserer(Station* racine, int id, long long capacite, long long somme_conso) {
-     if (racine == NULL) {
-        //création d'un noeud racine sans sous-arbre gauche et droit et return de la racine
-         Station* nouveau = (Station*)malloc(sizeof(Station));
-
+    if (racine == NULL) {
+        // Création d'un nouveau noeud
+        Station* nouveau = (Station*)malloc(sizeof(Station));
         if (nouveau == NULL) {
             printf("Erreur d'allocation de mémoire.\n");
             exit(EXIT_FAILURE);
         }
-
         nouveau->station_id = id;
         nouveau->capacite = capacite;
         nouveau->somme_conso = somme_conso;
         nouveau->fg = NULL;
         nouveau->fd = NULL;
         nouveau->hauteur = 1;
-
         return nouveau;
     }
 
-    // Si il y a deja une racine existante:
     if (racine->station_id == id) {
-        // Mise à jour des données existantes
-        racine->capacite += capacite;
+        // Mise à jour de la capacité uniquement si elle diffère
+        if (racine->capacite != capacite) {
+            racine->capacite = capacite;
+        }
+        // Incrémente la consommation totale
         racine->somme_conso += somme_conso;
+    } else if (id < racine->station_id) {
+        racine->fg = inserer(racine->fg, id, capacite, somme_conso);
     } else {
-        if (racine->station_id > id) {
-            racine->fg = inserer(racine->fg, id, capacite, somme_conso);
+        racine->fd = inserer(racine->fd, id, capacite, somme_conso);
+    }
+
+    // Mise à jour de la hauteur du noeud
+    racine->hauteur = 1 + max(hauteur(racine->fg), hauteur(racine->fd));
+
+    // Vérifie et corrige l'équilibre
+    int equilibre = equilibrerAVL(racine);
+
+    // Cas déséquilibrés : rotations nécessaires
+    if (equilibre > 1) {
+        if (id < racine->fg->station_id) {
+            return rotationDroite(racine);
         } else {
-            racine->fd = inserer(racine->fd, id, capacite, somme_conso);
+            racine->fg = rotationGauche(racine->fg);
+            return rotationDroite(racine);
         }
+    }
 
-        racine->hauteur = 1 + max(hauteur(racine->fg), hauteur(racine->fd));
-
-        // Vérifie et corrige l'équilibre
-        int equilibre = equilibrerAVL(racine);
-        
-        // Cas déséquilibrés : rotations nécessaires
-        if (equilibre > 1) {
-            if (id < racine->station_id) {
-                return rotationDroite(racine);
-            } else {
-                racine->fg = rotationGauche(racine->fg);
-                return rotationDroite(racine);
-            }
-        }
-
-        if (equilibre < -1) {
-            if (id > racine->station_id) {
-                return rotationGauche(racine);
-            } else {
-                racine->fd = rotationDroite(racine->fd);
-                return rotationGauche(racine);
-            }
+    if (equilibre < -1) {
+        if (id > racine->fd->station_id) {
+            return rotationGauche(racine);
+        } else {
+            racine->fd = rotationDroite(racine->fd);
+            return rotationGauche(racine);
         }
     }
 
     return racine;
 }
+
 
 // Parcours infixe pour afficher les stations
 void parcourinfixe(Station* racine) {
