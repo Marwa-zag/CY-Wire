@@ -84,7 +84,6 @@ Créer un dossier "data". Insérer votre fichier à trier (data.csv) dans le dos
 
   ## Fichiers de sortie après l'exécution du programme:
 
-  - Pour la station HVB/HVA, son type de consommateur comp et pour la station LV, son type de consommateur indiv et comp :
   #### Pour la station HVB :
     * `converted_data.csv` : convertit les sépareteurs du fichier ';' en ':'
     * `hvb_comp.csv` ; récupére l'ID de la station, sa capacité et sa consommation  des entreprises.
