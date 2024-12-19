@@ -27,13 +27,18 @@
 
 # Instructions pour l'éxécution
 
-Créer un dossier "data". Insérer votre fichier à trier (data.csv) dans le dossier "data" prévu pour cela.
+Après avoir téléchargé le dossier `Projet-CY-Wire`, veuillez y accéder : 
 
-- Après avoir récupéré le dossier, donné lui les droits d'éxécution :
+                                  ` cd Projet-CY-Wire`
+
+Insérer votre fichier à trier (c-wire_v25.dat) dans le dossier "data" prévu pour cela.
+
+- Après avoir récupéré le dossier, attribuez les droits d'éxécution au fichier `c-wire.sh` :
 
                                 `chmod +x c-wire.sh`
 
-- Avant d'éxecuter le programme C, veuillez donner les droits d'éxécution au dossier "progC" :
+- Avant d'éxecuter le programme C, attribuez les droits d'éxécution au dossier "progC" :
+  
                                  `chmod +x progC`
 
                 - Ensuite, accédez au dossier progC :
