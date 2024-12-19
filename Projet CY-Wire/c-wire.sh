@@ -144,8 +144,11 @@ case $type_station in
                     print $2, $7, $8
                 }' temp/converted_data.csv  | sort -t: -k2,2n > temp/hvb_comp${id_centrale:+_$id_centrale}.csv
 
-            echo "Résultat intermédiaire : temp/hvb_comp${id_centrale:+_$id_centrale}.csv"
-            "$EXECUTABLE/c-wire" temp/hvb_comp${id_centrale:+_$id_centrale}.csv | sort -t: -k2,2n > temp/hvb_comp_somme${id_centrale:+_$id_centrale}.csv
+             # Ajout de l'entête au fichier final
+            {
+                echo "Station HVB:Capacité:Consommation(entreprises)";
+                "$EXECUTABLE/c-wire" temp/hvb_comp${id_centrale:+_$id_centrale}.csv | sort -t: -k2,2n;
+            } > temp/hvb_comp_somme${id_centrale:+_$id_centrale}.csv
             echo "Résultat final : temp/hvb_comp_somme${id_centrale:+_$id_centrale}.csv"
         fi
         ;;
@@ -162,8 +165,11 @@ case $type_station in
                     print $3, $7, $8
                 }' temp/converted_data.csv | sort -t: -k2,2n > temp/hva_comp${id_centrale:+_$id_centrale}.csv
 
-            echo "Résultat intermédiaire : temp/hva_comp${id_centrale:+_$id_centrale}.csv"
-            "$EXECUTABLE/c-wire" temp/hva_comp${id_centrale:+_$id_centrale}.csv | sort -t: -k2,2n  > temp/hva_comp_somme${id_centrale:+_$id_centrale}.csv
+            # Ajout de l'entête au fichier final
+            {
+                echo "Station HVA:Capacité:Consommation(entreprises)";
+                "$EXECUTABLE/c-wire" temp/hva_comp${id_centrale:+_$id_centrale}.csv | sort -t: -k2,2n;
+            } > temp/hva_comp_somme${id_centrale:+_$id_centrale}.csv
             echo "Résultat final : temp/hva_comp_somme${id_centrale:+_$id_centrale}.csv"
         fi
         ;;
@@ -181,9 +187,12 @@ case $type_station in
                         print $4, $7, $8
                     }' temp/converted_data.csv | sort -t: -k2,2n > temp/lv_comp${id_centrale:+_$id_centrale}.csv
 
-                echo "Résultat intermédiaire : temp/lv_comp${id_centrale:+_$id_centrale}.csv"
-                "$EXECUTABLE/c-wire" temp/lv_comp${id_centrale:+_$id_centrale}.csv | sort -t: -k2,2n  > temp/lv_comp_somme${id_centrale:+_$id_centrale}.csv
-                echo "Résultat final : temp/lv_comp_somme${id_centrale:+_$id_centrale}.csv"
+                # Ajout de l'entête au fichier final
+                {
+                    echo "Station LV:Capacité:Consommation(entreprises)";
+                    "$EXECUTABLE/c-wire" temp/lv_comp${id_centrale:+_$id_centrale}.csv | sort -t: -k2,2n;
+                } > temp/lv_comp_somme${id_centrale:+_$id_centrale}.csv
+                echo "Résultat final : temp/lv_comp_somme${id_centrale:+_$id_centrale}.csv"            
                 ;;
             indiv)
                 sed 's/;/:/g' "$fichier_dat" > temp/converted_data.csv
@@ -197,8 +206,11 @@ case $type_station in
                         print $4, $7, $8
                     }' temp/converted_data.csv | sort -t: -k2,2n > temp/lv_indiv${id_centrale:+_$id_centrale}.csv
 
-                echo "Résultat intermédiaire : temp/lv_indiv${id_centrale:+_$id_centrale}.csv"
-                "$EXECUTABLE/c-wire" temp/lv_indiv${id_centrale:+_$id_centrale}.csv | sort -t: -k2,2n  > temp/lv_indiv_somme${id_centrale:+_$id_centrale}.csv
+                # Ajout de l'entête au fichier final
+                {
+                    echo "Station LV:Capacité:Consommation(particuliers)";
+                    "$EXECUTABLE/c-wire" temp/lv_indiv${id_centrale:+_$id_centrale}.csv | sort -t: -k2,2n;
+                } > temp/lv_indiv_somme${id_centrale:+_$id_centrale}.csv
                 echo "Résultat final : temp/lv_indiv_somme${id_centrale:+_$id_centrale}.csv"
                 ;;
             all)
@@ -213,8 +225,12 @@ case $type_station in
                         print $4, $7, $8
                     }' temp/converted_data.csv | sort -t: -k2,2n > temp/lv_all${id_centrale:+_$id_centrale}.csv
 
-                echo "Résultat intermédiaire par capacité croissante : temp/lv_all${id_centrale:+_$id_centrale}.csv"
-                "$EXECUTABLE/c-wire" temp/lv_all${id_centrale:+_$id_centrale}.csv | sort -t: -k2,2n  > temp/lv_all_somme${id_centrale:+_$id_centrale}.csv
+
+                # Ajout de l'entête au fichier final
+                {
+                    echo "Station LV:Capacité:Consommation(tous)";
+                    "$EXECUTABLE/c-wire" temp/lv_all${id_centrale:+_$id_centrale}.csv | sort -t: -k2,2n;
+                } > temp/lv_all_somme${id_centrale:+_$id_centrale}.csv
                 echo "Résultat final : temp/lv_all_somme${id_centrale:+_$id_centrale}.csv"
 
                # === Traitement supplémentaire pour lv_all_minmax.csv ===
@@ -231,8 +247,13 @@ case $type_station in
                     tail -n 10 > "$temp/lv_max_10.csv"
                 }
 
-                # Fusionne les résultats dans le fichier final
-                cat "$temp/lv_min_10.csv" "$temp/lv_max_10.csv" | awk -F':' '!seen[$1]++' | sort -t: -k4,4n | cut -d: -f1-3 > "$temp/lv_all_minmax.csv"
+                # Fusionne les résultats dans le fichier final avec entête
+                {
+                    echo "Min and Max 'capacity-load' extreme nodes";
+                    echo "Station LV:Capacité:Consommation";  # Ajouter l'entête
+                    cat "$temp/lv_min_10.csv" "$temp/lv_max_10.csv" | awk -F':' '!seen[$1]++' | sort -t: -k4,4n | cut -d: -f1-3;
+                } > "$temp/lv_all_minmax.csv"
+
 
                 echo "Fichier lv_all_minmax.csv généré avec succès dans le dossier temp."
                 ;;
@@ -266,50 +287,61 @@ echo "Le fichier $temp/$output_file_name a ete genere avec succès dans le dossi
 if command -v gnuplot &> /dev/null; then
 
     if [ "$type_station" == "lv" ] && [ "$type_consommateur" == "all" ]; then
-        
-        # Début du traitement du graphique
-        debut_temps=$(date +%s) # Calcul de la durée du traitement
 
-        echo "Création des graphiques..."
+        # Début du traitement graphique
+        debut_temps=$(date +%s)
+
+        echo "Création du graphique des 10 postes LV les plus et les moins chargés..."
 
         gnuplot <<- EOF
 
             # Configuration de l'image
-            set terminal png
+            set terminal pngcairo enhanced font "Arial,12" size 1200,1000
             set output "$graphs/graphique_lvminmax.png"
 
-            # Style et labels
-            set style data histograms
-            set style histogram cluster gap 1
-            set style fill solid 1.0 border -1
-            set boxwidth 0.8
-            set title "Top 10 Consommations Maximales et Minimales"
-            set xlabel "Stations" font "Arial,10"
-            set ylabel "Consommation (kWh)" font "Arial,10"
-            set grid ytics
-            set key autotitle columnheader
-            set xtics rotate by -45 font "Arial,8"
-
-            # Définir des couleurs spécifiques
-            MaxColor = "#FF6347"  # Rouge pour les maximales
-            MinColor = "#32CD32"  # Vert pour les minimales
-
-            # Données d'entrée et tracé
+            # Fichier à traiter
             set datafile separator ":"
-            plot "$temp/lv_all_minmax.csv" using 2:xtic(1) title "Top 10 Moins Excessives" linecolor rgb MinColor, \
-                 '' using 3:xtic(1) title "Top 10 Plus Excessives" linecolor rgb MaxColor
+            datafile = "$temp/lv_all_minmax.csv"
+
+            # Légende et titre
+            set title "lv all minmax : Production des stations et consommation des consommateurs" font "Arial,14"
+            set xlabel "ID Stations" font "Arial,10"
+            set ylabel "Capacité (kWh)" font "Arial,10"
+            set xtics rotate by -90 font "Arial,8"
+
+            # Échelle
+            set yrange [0:*]
+
+            # Désactiver l'affichage en notation scientifique
+            set format y "%.0f"
+
+            # Mettre la légende des barres à l'extérieur du graphique
+            set key outside top center horizontal
+
+            # Style des barres
+            set style data histograms
+            set style histogram rowstacked
+            set style fill solid 1.0 border -1
+            set boxwidth 0.75
+
+            # Couleurs pour les barres
+            MinColor = "#32CD32"  # Vert pour les postes sous-utilisés
+            MaxColor = "#FF6347"  # Rouge pour les postes sur-utilisés
+
+            # Tracé des barres empilées
+            plot datafile every ::1 using 2:xtic(1) title "Capacité" linecolor rgb MinColor, \
+                 "" every ::1 using (\$3 - \$2 > 0 ? \$3 - \$2 : 0) title "Énergie consommée en trop" linecolor rgb MaxColor
 
 EOF
 
-        echo "Graphique généré : $graphs/graphique_lvminmax.png"
+        echo "Graphique généré avec succès : $graphs/graphique_lvminmax.png"
+
         fin_temps=$(date +%s)
-        duree=$((fin_temps - debut_temps)) # Calcul de la durée du traitement
+        duree=$((fin_temps - debut_temps))
         echo "Temps d'exécution du graphique : $duree secondes"
 
     fi
 
 else
-
-    echo "GnuPlot non installé. Graphiques non générés."
-
+    echo "Erreur : GnuPlot n'est pas installé. Impossible de générer le graphique."
 fi
