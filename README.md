@@ -85,23 +85,23 @@ Créer un dossier "data". Insérer votre fichier à trier (data.csv) dans le dos
   ## Fichiers de sortie après l'exécution du programme:
 
   - Pour la station HVB/HVA, son type de consommateur comp et pour la station LV, son type de consommateur indiv et comp :
- #### Pour la station HVB :
+  #### Pour la station HVB :
     * `converted_data.csv` : convertit les sépareteurs du fichier ';' en ':'
     * `hvb_comp.csv` ; récupére l'ID de la station, sa capacité et sa consommation  des entreprises.
     * `hvb_comp_somme.csv` : récupére l'ID de la station, la somme de la capacité et la consommation des entreprises.
 
- ####  Pour la station HVA :
+  ####  Pour la station HVA :
     * `converted_data.csv` : convertit les sépareteurs du fichier ';' en ':'
     * `hva_comp.cs`v ; récupére l'ID de la station, sa capacité et sa consommation des entreprises.
     * `hva_comp_somme.csv` : récupére l'ID de la station, la somme de la capacité et la consommation des entreprises.
    
 
- #### Pour la station LV, son type de consommateur comp :
+  #### Pour la station LV, son type de consommateur comp :
     * `converted_data.csv` : convertit les sépareteurs du fichier ';' en ':'
     * `lv_comp.csv` ; récupére l'ID de la station, sa capacité et la consommation des entreprises.
     * `lv_comp_somme.csv` : récupére l'ID de la station, la somme de la capacité et la consommation des entreprises.
 
- #### Pour la station LV, son type de consommateur indiv :
+  #### Pour la station LV, son type de consommateur indiv :
     * `converted_data.csv` : convertit les sépareteurs du fichier ';' en ':'
     * `lv_indiv.csv` ; récupére l'ID de la station, sa capacité et la consommation des particuliers.
     * `lv_indiv_somme.csv` : récupére l'ID de la station, la somme de la capacité et la consommation des particuliers.
