@@ -135,7 +135,7 @@ Insérer votre fichier à trier (c-wire_v25.dat) dans le dossier "data" prévu p
 
 ![graphique_lvminmax](https://github.com/user-attachments/assets/19f482a1-bfc4-46eb-ae3a-166b6551f2f0)
 
-Par exemple  : `./c-wire.sh data/c-wire_v25.dat lv all 2` Le 2 représente l'ID unique de la centrale n°2.
+Par exemple  : `./c-wire.sh data/c-wire_v25.dat lv all 2`. Le 2 représente l'ID unique de la centrale n°2.
 
 
 ![graphique_lvminmax_2](https://github.com/user-attachments/assets/23a46fba-ce57-4b6c-a0a5-62a24ca1ea54)
