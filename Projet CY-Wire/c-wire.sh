@@ -146,7 +146,7 @@ case $type_station in
 
              # Ajout de l'entête au fichier final
             {
-                echo "Station HVB:Capacité:Consommation(entreprises)";
+                echo "Station HVB:Capacite:Consommation(entreprises)";
                 "$EXECUTABLE/c-wire" temp/hvb_comp${id_centrale:+_$id_centrale}.csv | sort -t: -k2,2n;
             } > temp/hvb_comp_somme${id_centrale:+_$id_centrale}.csv
             echo "Résultat final : temp/hvb_comp_somme${id_centrale:+_$id_centrale}.csv"
@@ -167,7 +167,7 @@ case $type_station in
 
             # Ajout de l'entête au fichier final
             {
-                echo "Station HVA:Capacité:Consommation(entreprises)";
+                echo "Station HVA:Capacite:Consommation(entreprises)";
                 "$EXECUTABLE/c-wire" temp/hva_comp${id_centrale:+_$id_centrale}.csv | sort -t: -k2,2n;
             } > temp/hva_comp_somme${id_centrale:+_$id_centrale}.csv
             echo "Résultat final : temp/hva_comp_somme${id_centrale:+_$id_centrale}.csv"
@@ -189,7 +189,7 @@ case $type_station in
 
                 # Ajout de l'entête au fichier final
                 {
-                    echo "Station LV:Capacité:Consommation(entreprises)";
+                    echo "Station LV:Capacite:Consommation(entreprises)";
                     "$EXECUTABLE/c-wire" temp/lv_comp${id_centrale:+_$id_centrale}.csv | sort -t: -k2,2n;
                 } > temp/lv_comp_somme${id_centrale:+_$id_centrale}.csv
                 echo "Résultat final : temp/lv_comp_somme${id_centrale:+_$id_centrale}.csv"            
@@ -208,7 +208,7 @@ case $type_station in
 
                 # Ajout de l'entête au fichier final
                 {
-                    echo "Station LV:Capacité:Consommation(particuliers)";
+                    echo "Station LV:Capacite:Consommation(particuliers)";
                     "$EXECUTABLE/c-wire" temp/lv_indiv${id_centrale:+_$id_centrale}.csv | sort -t: -k2,2n;
                 } > temp/lv_indiv_somme${id_centrale:+_$id_centrale}.csv
                 echo "Résultat final : temp/lv_indiv_somme${id_centrale:+_$id_centrale}.csv"
@@ -228,7 +228,7 @@ case $type_station in
 
                 # Ajout de l'entête au fichier final
                 {
-                    echo "Station LV:Capacité:Consommation(tous)";
+                    echo "Station LV:Capacite:Consommation(tous)";
                     "$EXECUTABLE/c-wire" temp/lv_all${id_centrale:+_$id_centrale}.csv | sort -t: -k2,2n;
                 } > temp/lv_all_somme${id_centrale:+_$id_centrale}.csv
                 echo "Résultat final : temp/lv_all_somme${id_centrale:+_$id_centrale}.csv"
@@ -250,7 +250,7 @@ case $type_station in
                 # Fusionne les résultats dans le fichier final avec entête
                 {
                     echo "Min and Max 'capacity-load' extreme nodes";
-                    echo "Station LV:Capacité:Consommation";  # Ajouter l'entête
+                    echo "Station LV:Capacite:Consommation";  # Ajouter l'entête
                     cat "$temp/lv_min_10.csv" "$temp/lv_max_10.csv" | awk -F':' '!seen[$1]++' | sort -t: -k4,4n | cut -d: -f1-3;
                 } > "$temp/lv_all_minmax.csv"
 
