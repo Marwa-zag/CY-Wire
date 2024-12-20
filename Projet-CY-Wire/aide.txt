@@ -1,0 +1,28 @@
+Utilisation :  ./c-wire.sh <chemin_du_fichier_données> <type_station> <type_consommateur>  [-h]
+
+Description : Ce script traite les données de distribution d'électricité pour analyser les stations (HV-B, HV-A, LV) en termes de sur- ou sous-consommation.
+
+Arguments obligatoires :
+  <chemin_du_fichier_données>   Chemin du fichier CSV contenant les données d'entrée.
+  * Les fichiers de données doivent être placés dans le dossier 'data'.
+  <type_station>               Type de station à traiter :
+                                - hvb : Stations HV-B
+                                - hva : Stations HV-A
+                                - lv  : Postes LV
+  <type_consommateur>          Type de consommateur à analyser :
+                                - comp  : Entreprises
+                                - indiv : Particuliers
+                                - all   : Tous les consommateurs (uniquement pour 'lv')
+
+Option :
+  -h                           Affiche cette aide détaillée. Le fichier aide.txt doit être situé dans le dossier Projet-CY-Wire ou se trouve le fichier c-wire.sh. 
+
+Exemples :
+  ./c-wire.sh data.csv hvb comp       Analyse les stations HV-B pour les entreprises.
+  ./c-wire.sh data/data.csv lv all 2  Analyse les postes LV pour tous les consommateurs, filtrés par la centrale 2. (5 centrale disponibles).
+  ./c-wire.sh -h                     Affiche cette aide.
+
+Notes :
+  - Si des arguments obligatoires sont manquants ou incorrects, un message d'erreur sera affiché.
+  - Les options 'hvb indiv' et 'hvb all', ainsi que 'hva indiv' et 'hva all', sont interdites.
+  - La durée des traitements sera affichée à la fin.
