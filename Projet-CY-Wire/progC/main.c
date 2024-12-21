@@ -30,11 +30,11 @@ int main(int argc, char* argv[]){
             continue;
         }
         
-        int station_id;
-        long long capacite, somme_conso;
+        unsigned short station_id;
+        unsigned long long capacite, somme_conso;
         
         // Lecture des colonnes nécessaires
-        if (sscanf(ligne, "%d:%lld:%lld", &station_id, &capacite, &somme_conso) != 3) {
+        if (sscanf(ligne, "%hu:%llu:%llu", &station_id, &capacite, &somme_conso) != 3) {
             fprintf(stderr, "Erreur de lecture de la ligne : %s\n", ligne);
             continue;
         }
