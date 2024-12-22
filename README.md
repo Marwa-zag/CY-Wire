@@ -126,41 +126,41 @@ Insérer votre fichier à trier (c-wire_v25.dat) dans le dossier "data" prévu p
   ## Fichiers de sortie après l'exécution du programme:
 
   #### Pour la station HVB :
-   * `converted_data.csv` : convertit les sépareteurs du fichier ';' en ':'
-   * `hvb_comp.csv` ; récupére l'ID de la station, sa capacité et sa consommation  des entreprises.
-   * `hvb_comp_somme.csv` : récupére l'ID de la station, la somme de la capacité et la consommation des entreprises.
+   * temp/`converted_data.csv` : convertit les sépareteurs du fichier ';' en ':'
+   * temp/`hvb_comp.csv` ; récupére l'ID de la station, sa capacité et sa consommation  des entreprises.
+   * tests/`hvb_comp_somme.csv` : récupére l'ID de la station, la somme de la capacité et la consommation des entreprises.
 
   ####  Pour la station HVA :
-   * `converted_data.csv` : convertit les sépareteurs du fichier ';' en ':'
-   * `hva_comp.cs`v ; récupére l'ID de la station, sa capacité et sa consommation des entreprises.
-   * `hva_comp_somme.csv` : récupére l'ID de la station, la somme de la capacité et la consommation des entreprises.
+   * temp/`converted_data.csv` : convertit les sépareteurs du fichier ';' en ':'
+   * temp/`hva_comp.cs`v ; récupére l'ID de la station, sa capacité et sa consommation des entreprises.
+   * tests/`hva_comp_somme.csv` : récupére l'ID de la station, la somme de la capacité et la consommation des entreprises.
    
 
   #### Pour la station LV, son type de consommateur comp :
-   * `converted_data.csv` : convertit les sépareteurs du fichier ';' en ':'
-   * `lv_comp.csv` ; récupére l'ID de la station, sa capacité et la consommation des entreprises.
-   * `lv_comp_somme.csv` : récupére l'ID de la station, la somme de la capacité et la consommation des entreprises.
+   * temp/`converted_data.csv` : convertit les sépareteurs du fichier ';' en ':'
+   * temp/`lv_comp.csv` ; récupére l'ID de la station, sa capacité et la consommation des entreprises.
+   * tests/`lv_comp_somme.csv` : récupére l'ID de la station, la somme de la capacité et la consommation des entreprises.
 
   #### Pour la station LV, son type de consommateur indiv :
-   * `converted_data.csv` : convertit les sépareteurs du fichier ';' en ':'
-   * `lv_indiv.csv` ; récupére l'ID de la station, sa capacité et la consommation des particuliers.
-   * `lv_indiv_somme.csv` : récupére l'ID de la station, la somme de la capacité et la consommation des particuliers.
+   * temp/`converted_data.csv` : convertit les sépareteurs du fichier ';' en ':'
+   * temp/`lv_indiv.csv` ; récupére l'ID de la station, sa capacité et la consommation des particuliers.
+   * tests/`lv_indiv_somme.csv` : récupére l'ID de la station, la somme de la capacité et la consommation des particuliers.
 
 
  #### Pour la station LV, son type de consommateur all :
-   * `converted_data.csv` : convertit les sépareteurs du fichier ';' en ':'
-   * `lv_all.csv` ; récupére l'ID de la station, sa capacité et sa consommation.
-   * `lv_all_somme.csv` : récupére l'ID de la station, la somme de la capacité et la consommation.
-   * `lv_max_10.csv` : Trie les données par consommation, les 10 plus grandes consommations.
-   * `lv_min_10.csv` : Trie les données par consommation, les 10 plus faibles consommations.
-   * `lv_all_minmax.csv` : Trie les données en fonction de la valeur croissante de la différence entre la capacité totale et la consommation totale, fusionne les fichiers max et min.
-   * `diff_sorted.csv` :  la différence entre la capacité totale et la consommation totale, et trie les données en fonction de la valeur croissante de la différence entre la capacité totale 
+   * temp/`converted_data.csv` : convertit les sépareteurs du fichier ';' en ':'
+   * temp/`lv_all.csv` ; récupére l'ID de la station, sa capacité et sa consommation.
+   * tests/`lv_all_somme.csv` : récupére l'ID de la station, la somme de la capacité et la consommation.
+   * temp/`diff_sorted.csv` :  la différence entre la capacité totale et la consommation totale, et trie les données en fonction de la valeur croissante de la différence entre la capacité totale
+   * temp/`lv_max_10.csv` : Trie les données par consommation, les 10 plus grandes consommations.
+   * temp/`lv_min_10.csv` : Trie les données par consommation, les 10 plus faibles consommations.
+   * tests/`lv_all_minmax.csv` : Trie les données en fonction de la valeur croissante de la différence entre la capacité totale et la consommation totale, fusionne les fichiers max et min. 
 
   ## Divers appels d'exécution
 
   - Pour afficher la somme des consommations et des capacités pour la station LV avec son type de consommateur indiv :
 
-<img width="691" alt="Capture d’écran 2024-12-22 à 12 26 20" src="https://github.com/user-attachments/assets/752ddafe-cc29-4d57-a19b-f5937ef91308" />
+<img width="659" alt="Capture d’écran 2024-12-22 à 16 59 29" src="https://github.com/user-attachments/assets/0fa892cd-14bb-4270-a2d5-1c46c3b065ae" />
 
   
   - Afin d'afficher la fonction d'aide, il suffit d'éxecuter dans le terminal (avant vérifier si le fichier `aide.txt` se situe dans le dossier Projet-CY-Wire) :
