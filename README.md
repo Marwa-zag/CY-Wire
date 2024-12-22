@@ -111,9 +111,8 @@ Insérer votre fichier à trier (c-wire_v25.dat) dans le dossier "data" prévu p
 
   Résultat après exécution :
   
-<img width="691" alt="Capture d’écran 2024-12-22 à 12 17 11" src="https://github.com/user-attachments/assets/6b132214-5486-4b00-a1cf-337b5cc001a4" />
+<img width="659" alt="Capture d’écran 2024-12-22 à 16 56 37" src="https://github.com/user-attachments/assets/963a4d66-93d5-4e82-9b3b-1bb50549b481" />
 
-  
 
 - Affiche le résultat demandé pour la station HVA avec son type de consommateur et l'ID de la centrale souhaitée :
 
@@ -121,9 +120,8 @@ Insérer votre fichier à trier (c-wire_v25.dat) dans le dossier "data" prévu p
   
  Résultat après exécution :
 
- <img width="691" alt="Capture d’écran 2024-12-22 à 12 17 59" src="https://github.com/user-attachments/assets/214f6267-7943-48cc-af76-50fcc62a35f8" />
+<img width="659" alt="Capture d’écran 2024-12-22 à 16 57 26" src="https://github.com/user-attachments/assets/e3031135-ba41-46c3-8a16-9cb390bb16df" />
 
- 
 
   ## Fichiers de sortie après l'exécution du programme:
 
