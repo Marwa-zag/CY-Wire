@@ -23,6 +23,15 @@ L’analyse porte sur différents niveaux du réseau : les centrales, les sous-s
 
 En bonus, produire des graphiques synthétiques pour visualiser les consommations des postes LV les plus et les moins sollicités.
 
+## Processus de téléchargement du projet**  
+
+1. Téléchargez le dossier du projet, qui sera fourni au format ZIP.  
+2. Décompressez le fichier ZIP pour extraire son contenu.  
+3. Récupérez le dossier **Projet-CY-Wire** et placez-le soit :  
+   - Dans l'explorateur de fichiers, à l'emplacement de votre choix.  
+   - Dans le dossier **home** si vous utilisez Ubuntu.  
+4. Ouvrez un terminal et accédez au dossier **Projet-CY-Wire**.  
+
  # Structure du dossier Projet-CY-Wire
 
 <img width="841" alt="Capture d’écran 2024-12-18 à 10 50 28" src="https://github.com/user-attachments/assets/fe646777-a5c4-4646-8e49-75e3383539dc" />
