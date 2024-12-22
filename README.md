@@ -1,9 +1,27 @@
 # CY-Wire
  Projet CY-Wire 2024-2025
- Emma Danan
- Amine Taki
- Marwa Zagliz
+ * Emma Danan
+ * Amine Taki
+ * Marwa Zagliz
+
  Préing2 MEF1
+
+
+ # Présentation du Projet CY-Wire
+
+ Présentation du projet C-Wire
+
+Le projet C-Wire a pour objectif de développer un programme informatique permettant d'analyser et de synthétiser des données issues d'un système de distribution d’électricité. Ces données, fournies sous la forme d’un fichier CSV volumineux, modélisent un réseau énergétique complexe allant des centrales électriques aux consommateurs finaux (entreprises et particuliers).
+
+L’analyse porte sur différents niveaux du réseau : les centrales, les sous-stations haute tension (HV-B et HV-A) et les postes basse tension (LV). Chaque élément joue un rôle clé dans la transmission et la consommation d'énergie, et le projet vise à évaluer leur état de fonctionnement. Plus précisément, le programme doit identifier les situations de surproduction ou de sous-production d’énergie, ainsi que calculer la part d'énergie consommée par les différentes catégories d'utilisateurs.
+
+## Objectifs principaux :
+
+1. Filtrer les données pertinentes à partir du fichier CSV en fonction des paramètres définis par l'utilisateur.
+2. Traiter ces données pour calculer les consommations totales par station, tout en utilisant des structures de données efficaces comme des arbres AVL.
+3. Générer des résultats clairs et structurés (fichiers CSV), permettant une analyse approfondie du réseau.
+
+En bonus, produire des graphiques synthétiques pour visualiser les consommations des postes LV les plus et les moins sollicités.
 
  # Structure du dossier Projet-CY-Wire
 
