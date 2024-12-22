@@ -47,6 +47,7 @@ fi
 #- Dossisers utilisés
 temp="./temp"   # Dossier temporaire pour les fichiers intermédiaire
 graphs="./graphs"  # Dossier pour stocker les graphiques générés
+tests="./tests" # Dossier pour stocker les fichiers finaux
 
 
 #Verification de l'existence du dossier temp
@@ -152,12 +153,14 @@ case $type_station in
                     print $2, $7, $8
                 }' temp/converted_data.csv  | sort -t: -k2,2n > temp/hvb_comp${id_centrale:+_$id_centrale}.csv
 
+                echo "Résultat intermédiaire : temp/hvb_comp${id_centrale:+_$id_centrale}.csv"
+
              # Ajout de l'entête au fichier final
             {
                 echo "Station HVB:Capacite:Consommation(entreprises)";
                 "$EXECUTABLE/c-wire" temp/hvb_comp${id_centrale:+_$id_centrale}.csv | sort -t: -k2,2n;
-            } > temp/hvb_comp_somme${id_centrale:+_$id_centrale}.csv
-            echo "Résultat final : temp/hvb_comp_somme${id_centrale:+_$id_centrale}.csv"
+            } > tests/hvb_comp_somme${id_centrale:+_$id_centrale}.csv
+            echo "Résultat final : tests/hvb_comp_somme${id_centrale:+_$id_centrale}.csv"
         fi
         ;;
     hva)
@@ -173,12 +176,14 @@ case $type_station in
                     print $3, $7, $8
                 }' temp/converted_data.csv | sort -t: -k2,2n > temp/hva_comp${id_centrale:+_$id_centrale}.csv
 
+                echo "Résultat intermédiaire : temp/hva_comp${id_centrale:+_$id_centrale}.csv"
+
             # Ajout de l'entête au fichier final
             {
                 echo "Station HVA:Capacite:Consommation(entreprises)";
                 "$EXECUTABLE/c-wire" temp/hva_comp${id_centrale:+_$id_centrale}.csv | sort -t: -k2,2n;
-            } > temp/hva_comp_somme${id_centrale:+_$id_centrale}.csv
-            echo "Résultat final : temp/hva_comp_somme${id_centrale:+_$id_centrale}.csv"
+            } > tests/hva_comp_somme${id_centrale:+_$id_centrale}.csv
+            echo "Résultat final : tests/hva_comp_somme${id_centrale:+_$id_centrale}.csv"
         fi
         ;;
     lv)
@@ -195,12 +200,14 @@ case $type_station in
                         print $4, $7, $8
                     }' temp/converted_data.csv | sort -t: -k2,2n > temp/lv_comp${id_centrale:+_$id_centrale}.csv
 
+                    echo "Résultat intermédiaire : temp/lv_comp${id_centrale:+_$id_centrale}.csv"
+
                 # Ajout de l'entête au fichier final
                 {
                     echo "Station LV:Capacite:Consommation(entreprises)";
                     "$EXECUTABLE/c-wire" temp/lv_comp${id_centrale:+_$id_centrale}.csv | sort -t: -k2,2n;
-                } > temp/lv_comp_somme${id_centrale:+_$id_centrale}.csv
-                echo "Résultat final : temp/lv_comp_somme${id_centrale:+_$id_centrale}.csv"            
+                } > tests/lv_comp_somme${id_centrale:+_$id_centrale}.csv
+                echo "Résultat final : tests/lv_comp_somme${id_centrale:+_$id_centrale}.csv"            
                 ;;
             indiv)
                 sed 's/;/:/g' "$fichier_dat" > temp/converted_data.csv
@@ -214,12 +221,14 @@ case $type_station in
                         print $4, $7, $8
                     }' temp/converted_data.csv | sort -t: -k2,2n > temp/lv_indiv${id_centrale:+_$id_centrale}.csv
 
+                    echo "Résultat intermédiaire : temp/lv_indiv${id_centrale:+_$id_centrale}.csv"
+
                 # Ajout de l'entête au fichier final
                 {
                     echo "Station LV:Capacite:Consommation(particuliers)";
                     "$EXECUTABLE/c-wire" temp/lv_indiv${id_centrale:+_$id_centrale}.csv | sort -t: -k2,2n;
-                } > temp/lv_indiv_somme${id_centrale:+_$id_centrale}.csv
-                echo "Résultat final : temp/lv_indiv_somme${id_centrale:+_$id_centrale}.csv"
+                } > tests/lv_indiv_somme${id_centrale:+_$id_centrale}.csv
+                echo "Résultat final : tests/lv_indiv_somme${id_centrale:+_$id_centrale}.csv"
                 ;;
             all)
                 sed 's/;/:/g' "$fichier_dat" > temp/converted_data.csv
@@ -233,13 +242,15 @@ case $type_station in
                         print $4, $7, $8
                     }' temp/converted_data.csv | sort -t: -k2,2n > temp/lv_all${id_centrale:+_$id_centrale}.csv
 
+                    echo "Résultat intermédiaire : temp/lv_all${id_centrale:+_$id_centrale}.csv"
+
 
                 # Ajout de l'entête au fichier final
                 {
                     echo "Station LV:Capacite:Consommation(tous)";
                     "$EXECUTABLE/c-wire" temp/lv_all${id_centrale:+_$id_centrale}.csv | sort -t: -k2,2n;
-                } > temp/lv_all_somme${id_centrale:+_$id_centrale}.csv
-                echo "Résultat final : temp/lv_all_somme${id_centrale:+_$id_centrale}.csv"
+                } > tests/lv_all_somme${id_centrale:+_$id_centrale}.csv
+                echo "Résultat final : tests/lv_all_somme${id_centrale:+_$id_centrale}.csv"
 
                # === Traitement supplémentaire pour lv_all_minmax.csv ===
 
@@ -247,7 +258,7 @@ case $type_station in
                 awk -F':' -v central="$id_centrale" ' {
                     diff = $2 - $3;
                     printf "%s:%s:%s:%.0f\n", $1, $2, $3, diff;
-                }' "$temp/lv_all_somme${id_centrale:+_$id_centrale}.csv" | sort -t: -k4,4n -k1,1n > "$temp/diff_sorted.csv"
+                }' "$tests/lv_all_somme${id_centrale:+_$id_centrale}.csv" | sort -t: -k4,4n -k1,1n > "$temp/diff_sorted.csv"
 
                 # Sélectionne les 10 postes avec les plus petites différences et les 10 plus grandes, en excluant les doublons
                 awk -F':' '!seen[$1]++' "$temp/diff_sorted.csv" | {
@@ -255,15 +266,17 @@ case $type_station in
                     tail -n 10 > "$temp/lv_max_10.csv"
                 }
 
+                echo "Résultat intermédiaire : temp/diff_sorted.csv${id_centrale:+_$id_centrale}.csv, temp/lv_min_10.csv${id_centrale:+_$id_centrale}.csv, temp/lv_min_10.csv${id_centrale:+_$id_centrale}.csv."
+
                 # Fusionne les résultats dans le fichier final avec entête
                 {
                     echo "Min and Max 'capacity-load' extreme nodes";
                     echo "Station LV:Capacite:Consommation";  # Ajouter l'entête
                     cat "$temp/lv_min_10.csv" "$temp/lv_max_10.csv" | awk -F':' '!seen[$1]++' | sort -t: -k4,4n | cut -d: -f1-3;
-                } > "$temp/lv_all_minmax${id_centrale:+_$id_centrale}.csv"
+                } > "$tests/lv_all_minmax${id_centrale:+_$id_centrale}.csv"
 
 
-                echo "Fichier lv_all_minmax.csv généré avec succès dans le dossier temp."
+                echo "Résultat final : tests/lv_all_minmax${id_centrale:+_$id_centrale}.csv"
                 ;;
         esac
         ;;
@@ -286,7 +299,7 @@ if [ ! -s "$temp/$output_file_name" ]; then
 fi
 
 # Confirmation de la génération du fichier 
-echo "Le fichier $temp/$output_file_name a ete genere avec succès dans le dossier temp."
+echo "Le fichier $tests/$output_file_name a ete genere avec succès dans le dossier tests."
 
 
 #  ===================== Bonus =====================
@@ -309,7 +322,7 @@ if command -v gnuplot &> /dev/null; then
 
             # Fichier à traiter
             set datafile separator ":"
-            datafile = "$temp/lv_all_minmax${id_centrale:+_$id_centrale}.csv"
+            datafile = "$tests/lv_all_minmax${id_centrale:+_$id_centrale}.csv"
 
             # Légende et titre
             set title "lv all minmax : Comparaison de la capacité des stations et de la consommation (surcharge visible)" font "Arial,14"
