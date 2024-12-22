@@ -166,7 +166,8 @@ Insérer votre fichier à trier (c-wire_v25.dat) dans le dossier "data" prévu p
   - Afin d'afficher la fonction d'aide, il suffit d'éxecuter dans le terminal (avant vérifier si le fichier `aide.txt` se situe dans le dossier Projet-CY-Wire) :
                                  `./c-wire.sh -h`
 
-  <img width="1157" alt="Capture d’écran 2024-12-15 à 21 12 59" src="https://github.com/user-attachments/assets/2821cf3e-56d2-4508-a97c-b52033278bdb" />
+<img width="1161" alt="Capture d’écran 2024-12-22 à 18 38 24" src="https://github.com/user-attachments/assets/f75f5736-af09-4cc2-9394-dc9a6b023d89" />
+
 
   ## Combinaisons Interdites
 
