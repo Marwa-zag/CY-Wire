@@ -176,6 +176,10 @@ Insérer votre fichier à trier (c-wire_v25.dat) dans le dossier "data" prévu p
 
 **Postes LV :** Toutes les options sont autorisées (entreprises, particuliers, ou tous les consommateurs), aucun message d’erreur ne sera généré.
 
+
+## Plus de détails
+
+Pour plus de détails sur le projet, veuillez consulter le rapport qui contient une explication approfondie du Projet.
   
 
   ## Sources :
