@@ -161,6 +161,20 @@ Insérer votre fichier à trier (c-wire_v25.dat) dans le dossier "data" prévu p
 
   <img width="1157" alt="Capture d’écran 2024-12-15 à 21 12 59" src="https://github.com/user-attachments/assets/2821cf3e-56d2-4508-a97c-b52033278bdb" />
 
+  ## Combinaisons Interdites
+
+**Stations HV-B :** Si vous choisissez "hvb all" ou "hvb indiv", un message d'erreur s’affichera, car seules les entreprises peuvent être analysées pour ce type de station.
+ - Par exemple : `./c-wire.sh data/c-wire_v25.dat hvb all`
+
+<img width="1219" alt="Capture d’écran 2024-12-22 à 12 31 55" src="https://github.com/user-attachments/assets/7e424e7d-e19c-4e13-b667-0d96d9392f2f" />
+
+**Stations HV-A :** Si vous choisissez "hva all" ou "hva indiv", un message d'erreur s’affichera, car seules les entreprises peuvent être analysées pour ce type de station.  
+
+ - Par exemple : `./c-wire.sh data/c-wire_v25.dat hva indiv`
+
+   <img width="1219" alt="Capture d’écran 2024-12-22 à 12 32 57" src="https://github.com/user-attachments/assets/13bd9c37-b73b-47a9-9a30-f946485f6b9d" />
+
+**Postes LV :** Toutes les options sont autorisées (entreprises, particuliers, ou tous les consommateurs), aucun message d’erreur ne sera généré.
 
   
 
