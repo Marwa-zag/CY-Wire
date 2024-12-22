@@ -11,7 +11,7 @@ Arguments obligatoires :
                                 - lv  : Postes LV
   <type_consommateur>          Type de consommateur à analyser :
                                 - comp  : Entreprises
-                                - indiv : Particuliers
+                                - indiv : Particuliers (uniquement pour 'lv')
                                 - all   : Tous les consommateurs (uniquement pour 'lv')
 
 Option :
