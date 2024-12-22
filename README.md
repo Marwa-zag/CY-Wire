@@ -99,11 +99,22 @@ Insérer votre fichier à trier (c-wire_v25.dat) dans le dossier "data" prévu p
 - Afficher la somme des consommations et des capacités pour la station HVB avec son type de consommateur :
          
                            ./c-wire.sh data/c-wire_v25.dat hvb comp
+
+  Résultat après exécution :
+  
+<img width="691" alt="Capture d’écran 2024-12-22 à 12 17 11" src="https://github.com/user-attachments/assets/6b132214-5486-4b00-a1cf-337b5cc001a4" />
+
   
 
 - Afficher le résultat demandé pour la station HVA avec son type de consommateur et l'ID de la centrale souhaitée :
 
                              ./c-wire.sh data/c-wire_v25.dat hva comp 4
+  
+ Résultat après exécution :
+
+ <img width="691" alt="Capture d’écran 2024-12-22 à 12 17 59" src="https://github.com/user-attachments/assets/214f6267-7943-48cc-af76-50fcc62a35f8" />
+
+ 
 
   ## Fichiers de sortie après l'exécution du programme:
 
