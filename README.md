@@ -96,7 +96,7 @@ Insérer votre fichier à trier (c-wire_v25.dat) dans le dossier "data" prévu p
 
 ## Exemples d'exécutions appelées :
 
-- Afficher la somme des consommations et des capacités pour la station HVB avec son type de consommateur :
+- Affiche la somme des consommations et des capacités pour la station HVB avec son type de consommateur :
          
                            ./c-wire.sh data/c-wire_v25.dat hvb comp
 
@@ -106,7 +106,7 @@ Insérer votre fichier à trier (c-wire_v25.dat) dans le dossier "data" prévu p
 
   
 
-- Afficher le résultat demandé pour la station HVA avec son type de consommateur et l'ID de la centrale souhaitée :
+- Affiche le résultat demandé pour la station HVA avec son type de consommateur et l'ID de la centrale souhaitée :
 
                              ./c-wire.sh data/c-wire_v25.dat hva comp 4
   
@@ -149,12 +149,15 @@ Insérer votre fichier à trier (c-wire_v25.dat) dans le dossier "data" prévu p
    * `lv_all_minmax.csv` : Trie les données en fonction de la valeur croissante de la différence entre la capacité totale et la consommation totale, fusionne les fichiers max et min.
    * `diff_sorted.csv` :  la différence entre la capacité totale et la consommation totale, et trie les données en fonction de la valeur croissante de la différence entre la capacité totale 
 
-  ## Aperçu d'une éxécution en cours...
+  ## Divers appels d'exécution
 
-  <img width="658" alt="Capture d’écran 2024-12-15 à 21 10 56" src="https://github.com/user-attachments/assets/877c30c4-2260-4f36-90d4-984358581a76" />
+  - Pour afficher la somme des consommations et des capacités pour la station LV avec son type de consommateur indiv :
+
+<img width="691" alt="Capture d’écran 2024-12-22 à 12 26 20" src="https://github.com/user-attachments/assets/752ddafe-cc29-4d57-a19b-f5937ef91308" />
 
   
-  ## Aperçu de la fonction d'affichage
+  - Afin d'afficher la fonction d'aide, il suffit d'éxecuter dans le terminal (avant vérifier si le fichier `aide.txt` se situe dans le dossier Projet-CY-Wire) :
+                                 `./c-wire.sh -h`
 
   <img width="1157" alt="Capture d’écran 2024-12-15 à 21 12 59" src="https://github.com/user-attachments/assets/2821cf3e-56d2-4508-a97c-b52033278bdb" />
 
