@@ -23,7 +23,7 @@ L’analyse porte sur différents niveaux du réseau : les centrales, les sous-s
 
 En bonus, produire des graphiques synthétiques pour visualiser les consommations des postes LV les plus et les moins sollicités.
 
-## Processus de téléchargement du projet**  
+## Processus de téléchargement du projet 
 
 1. Téléchargez le dossier du projet, qui sera fourni au format ZIP.  
 2. Décompressez le fichier ZIP pour extraire son contenu.  
